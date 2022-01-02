@@ -1,0 +1,1020 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记  读论文三步曲：泛读，精读，总结。  泛读  泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。  Title部分 FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection  任务: 3D Obje">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记">
+<meta property="og:url" content="http://example.com/2022/01/02/FCAF3D-Fully-Convolutional-Anchor-Free-3D-Object-Detection%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记  读论文三步曲：泛读，精读，总结。  泛读  泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。  Title部分 FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection  任务: 3D Obje">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202112302104766.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202112311353526.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202112311824156.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021151199.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021153898.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021131231.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021147495.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021148945.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021407746.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201021429824.png">
+<meta property="article:published_time" content="2022-01-02T09:20:20.000Z">
+<meta property="article:modified_time" content="2022-01-02T10:03:15.809Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202112302104766.png">
+  
+  
+  <title>FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-02 17:20" pubdate>
+        January 2, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      32k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      266 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="fcaf3d-fully-convolutional-anchor-free-3d-object-detection阅读笔记">FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记</h1>
+<blockquote>
+<p>读论文三步曲：泛读，精读，总结。</p>
+</blockquote>
+<h2 id="泛读">泛读</h2>
+<blockquote>
+<p>泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。</p>
+</blockquote>
+<h3 id="title部分">Title部分</h3>
+<p>FCAF3D: <u>Fully Convolutional</u> <strong>Anchor-Free</strong> <em>3D Object Detection</em></p>
+<ul>
+<li>任务: 3D Object Detection</li>
+<li>方法: Fully Convolution</li>
+<li>特点: Anchor-Free</li>
+</ul>
+<h4 id="什么是anchor">什么是Anchor?</h4>
+<blockquote>
+<p><em>参考资料: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55824651">目标检测中的Anchor</a></em></p>
+</blockquote>
+<p>在目标检测中, Anchor指锚点, Anchor Box指锚框.</p>
+<p>目标检测需要解决<strong>在哪里有什么</strong>的问题, 具体来说, 检测目标的类别、数量、位置、尺度都是不确定的.</p>
+<p>传统非深度学习方法和早期深度学习方法都要结合<strong>金字塔多尺度</strong>和<strong>遍历滑窗</strong>的方式, 逐尺度逐位置判断<strong>这个尺度的这个位置处有没有认识的目标</strong>, 非常耗时.</p>
+<p>近期顶尖(SOTA)的目标检测方法几乎都用了anchor技术. 首先预设一组不同尺度不同位置的固定参考框, 覆盖几乎所有位置和尺度, 每个参考框负责检测与其交并比大于阈值(训练预设值，常用0.5或0.7)的目标，anchor技术将问题转换为<strong>这个固定参考框中有没有认识的目标、目标框偏离参考框多远</strong>, 不再需要多尺度遍历滑窗, 真正实现了又好又快。</p>
+<p>使用Anchor技术的算法称为Anchor-based算法, 不使用Anchor技术的算法称为Anchor-free的算法.</p>
+<p>Anchor-based的算法一般需要先在训练集上统计一组不同尺寸检测框的集合, 这个集合代表目标框主要分布的尺度, 在推理生成的特征图上使用这一组框滑动判断框内有无目标得到候选框, 最后聚合所有的候选框得到最终的检测框结果.</p>
+<h3 id="abstract部分">Abstract部分</h3>
+<p>FCAF3D - a ﬁrst-in-class fully convolutional anchor-free <u>indoor</u> 3D object detection method.</p>
+<p>细化使用场景为室内.</p>
+<p>It is a simple yet effective method that uses a <u>voxel representation</u> of a point cloud and processes voxels with <u>sparse convolutions</u>.</p>
+<p>使用点云的体素化表示方法并使用稀疏卷积对体素进行操作.</p>
+<p>Existing 3D object detection methods make <u>prior assumptions on the geometry of objects</u>, and we argue that it <u>limits their generalization ability</u>.</p>
+<p>作者认为目前的三维检测方法对物体的几何尺寸有预先假设, 这限制了模型的生成能力.</p>
+<p>To get rid of any prior assumptions, we propose <u>a novel parametrization of oriented bounding boxes</u>.</p>
+<p>为了不依赖任何先验假设, 作者提出了一种有向边界框的参数化方法.</p>
+<p>The proposed method achieves state-of-the-art 3D object detection results in terms of <span class="math inline">\(mAP@0.5\)</span> on ScanNet V2 (+4.5), SUN RGB-D (+3.5), and S3DIS (+20.5) datasets.</p>
+<p>作者提出的方法在三大室内数据集(ScanNet V2、SUN RGB-D、S3DIS)上均达到了SOTA.</p>
+<p>The code and models are available at <a target="_blank" rel="noopener" href="https://github.com/samsunglabs/fcaf3d">https://github.com/samsunglabs/fcaf3d</a>.</p>
+<p>代码在<a target="_blank" rel="noopener" href="https://github.com/samsunglabs/fcaf3d">GitHub</a>.</p>
+<h3 id="conclusion部分">Conclusion部分</h3>
+<p>The proposed method signiﬁcantly outperforms the previous state-of-the-art on the challenging indoor SUN RGB-D, ScanNet, and S3DIS benchmarks in terms of both <u>mAP</u> and <u>inference speed</u>.</p>
+<p>作者提出的方法在mAP和预测速度这两个指标上都超过之前的算法.</p>
+<p>We have also proposed a novel oriented bounding box parametrization and shown that it improves detection accuracy for <u>several existing 3D object detection methods</u>.</p>
+<p>作者提出的新的向边界框的参数化方法能够提升已有算法的准确性.</p>
+<p>Moreover, the proposed parametrization allows avoiding any prior assumptions about objects, thus <u>reducing the number of hyperparameters</u>.</p>
+<p>作者提出的新的有向边界框的参数化方法能够减少超参数的数量, 因为其避免使用物体框的先验信息.</p>
+<h3 id="小标题分析">小标题分析</h3>
+<ul>
+<li>Introduction <em>[简介]</em></li>
+<li>Related Work <em>[相关工作]</em></li>
+<li>Proposed Method <em>[提出的方法]</em>
+<ul>
+<li>Sparse Neural Network <em>[<u>FCAF3D结构</u>]</em></li>
+<li>Bounding Box Parametrization <em>[<u>新的有向边界框的参数化方法</u>]</em></li>
+</ul></li>
+<li>Experiments <em>[实验]</em>
+<ul>
+<li>Datasets <em>[数据集]</em></li>
+<li>Implementation Details <em>[实现细节]</em></li>
+</ul></li>
+<li>Results <em>[实验结果]</em>
+<ul>
+<li>Comparison with State-of-the-art Methods <em>[与其他SOTA的比较]</em></li>
+<li>Object Geometry Priors <em>[<u>物体结构先验</u>]</em></li>
+<li>Ablation Study <em>[<u>消融实验</u>]</em></li>
+<li>Inference Speed <em>[预测速度]</em></li>
+</ul></li>
+<li>Conclusion <em>[结论]</em></li>
+<li>Supplement <em>[附加材料]</em>
+<ul>
+<li>Additional Comments on Mobius Parametrization <em>[<u>新的有向边界框的参数化方法的附加说明</u>]</em></li>
+<li>Per-category results <em>[每个类别的实验结果]</em></li>
+<li>Visualization <em>[可视化结果]</em></li>
+</ul></li>
+</ul>
+<h3 id="泛读总结">泛读总结</h3>
+<blockquote>
+<p>泛读目标及效果自测：1.论文要解决什么问题? 2.论文采用了什么方法? 3.论文达到什么效果?</p>
+</blockquote>
+<p>论文要解决什么问题? - 室内场景的三维检测任务.</p>
+<p>论文采用了什么方法? - 使用Anchor-Free的全卷积方法, 输入为三维点云经过体素化后的体素数据, 使用稀疏卷积对体素进行操作. 同时, 作者认为物体的几何尺寸的先验限制了模型的生成能力. 为了不依赖任何先验假设, 作者提出了一种有向边界框的参数化方法.</p>
+<p>论文达到什么效果? - 作者提出的新的参数化方法不仅能够提升已有检测方法的准确性, 而且由于避免使用形状先验, 这种新的参数化方法减少了需要的超参数的数量. FCAF3D在mAP和预测速度这两个指标上、在三大室内数据集(ScanNet V2、SUN RGB-D、S3DIS)上均达到了SOTA.</p>
+<h2 id="精读">精读</h2>
+<blockquote>
+<p>精读：通过泛读找到需要精读重点部分和快速略过的部分，选出精华，仔细阅读。</p>
+</blockquote>
+<h3 id="introduction部分">Introduction部分</h3>
+<p>3D methods are challenged by <u>irregular unstructured 3D data of arbitrary volume</u>.</p>
+<p>三维物体检测的难点在于三维数据是不规则的、非结构化的、容量可变的.</p>
+<p>All convolutional methods for 3D object detection have <u>scalability issues</u>: large-scale scenes either require an impractical amount of computational resources or take too much time to process.</p>
+<p>三维物体检测方法一般都面临拓展性的问题, 对于大规模场景需要耗费很高的计算成本或花费很长时间.</p>
+<p>Other methods opt for voxel data representation and employ sparse convolutions; however, these methods solve scalability problems at the cost of detection accuracy.</p>
+<p>有一些使用稀疏卷积的方法优化处理体素数据, 通过牺牲检测准确度的方式解决拓展性问题.</p>
+<p>Besides being scalable and accurate, an ideal 3D object detection method should also be able to handle <u>diverse objects of arbitrary shapes and sizes</u> without additional hacks and hand-tuned hyperparameters.</p>
+<p>理想的三维检测器应该能够预测各种大小和形状的多种多样的物体.</p>
+<p>Moreover, we introduce a novel oriented bounding box (OBB) parametrization inspired by a <u>Mobius strip</u> that reduces the number of hyperparameters.</p>
+<p>作者提出的新的有向边界框的参数化方法是受到莫比乌斯带的启发.</p>
+<p>Overall, our contribution is three-fold: 1. To our knowledge, we propose a ﬁrst-in-class fully convolutional anchor-free 3D object detection method (FCAF3D) for indoor scenes. 2. We present a novel OBB parametrization and prove it to boost accuracy of several existing 3D object detection methods on SUN RGB-D. 3. Our method signiﬁcantly outperforms the previous state-of-the-art on challenging large-scale indoor ScanNet, SUN RGB-D, and S3DIS datasets in terms of mAP while being faster on inference.</p>
+<p>作者的贡献:</p>
+<ol type="1">
+<li>提出了FCAF3D, 一个anchor-free的全卷积的室内三维检测算法.</li>
+<li>提出了一种新的有向边界框的参数化方法并证明了这种方法能够显著提升已有的三维检测算法的表现.</li>
+<li>FCAF3D不仅mAP大幅超过之前的SOTA还比之前的算法更快在预测的时候.</li>
+</ol>
+<h3 id="related-work部分">Related Work部分</h3>
+<p>Indoor and outdoor methods have been developing almost <u>independently</u>, <u>applying domain-speciﬁc solutions to address data issues</u>.</p>
+<p>室内和室外三维检测方法基本上是分开独立发展的, 因为这样可以利用domain-speciﬁc的特点解决数据带来的问题.</p>
+<p>Currently, three approaches dominate the ﬁeld of 3D object detection - <u>voting-based</u>, <u>transformer-based</u>, and <u>3D convolutional</u>.</p>
+<p>目前, 室内三维检测主要有三种方式: <u>voting-based</u>、<u>transformer-based</u>和<u>3D convolutional</u>.</p>
+<h4 id="voting-based-methods">Voting-based methods</h4>
+<p>Voting-based方法: VoteNet, BRNet, MLCVNet, H3DNet, VENet.</p>
+<p>All the voting-based methods <u>inherited from VoteNet</u> are limited by design.</p>
+<p>所有的voting-based方法都继承自VoteNet.</p>
+<p>First, their performance depends on <u>the amount of input data</u>; thus, they tend to slow down if given larger scenes and demonstrate <u>poor scalability</u>.</p>
+<p>Voting-based方法的表现依赖于输入数据的数量, 因此在处理大量数据的时候会很慢, 这产生了拓展性的问题.</p>
+<p>Moreover, many voting-based methods <u>implement voting and grouping strategies as complex custom layers</u> making it <u>difﬁcult to reproduce or debug these methods or port them to mobile devices</u>.</p>
+<p>Voting-based方法一般将投票和分组策略实现成复杂的定制的层, 这使得再现和调试变得很困难并且难以将这些方法移植到移动设备上.</p>
+<h4 id="transformer-based-methods">Transformer-based methods</h4>
+<p>Transformer-based方法: GroupFree, 3DETR.</p>
+<p>However, similar to early voting-based methods, more advanced transformer-based methods still experience <u>scalability issues</u>.</p>
+<p>Transformer-based方法也面临拓展性的问题.</p>
+<p>Differently, our method is fully-convolutional thus being <u>faster and signiﬁcantly easier</u> to implement compared to both voting-based and tranformer-based methods.</p>
+<p>FCAF3D是全卷积的方法, 与voting-based方法和transformer-based方法相比, 运行更快且更易实现.</p>
+<h4 id="d-convolutional-methods">3D convolutional methods</h4>
+<p>3D convolutional方法: GSDN.</p>
+<p>Difﬁculties with handling cubically growing sparse 3D data can be overcome by <u>using voxel representation</u>.</p>
+<p>使用体素表达可以解决稀疏的三维数据的立方增长的问题.</p>
+<p>However, <u>dense volumetric features still consume much memory</u>, and <u>3D convolutions are computationally expensive</u>.</p>
+<p>但是稠密的体素特征仍然消耗许多内存, 三维卷积的计算量也很大.</p>
+<p>Overall, processing large scenes requires a lot of resources and <u>cannot be done within a single pass</u>.</p>
+<p>处理大场景的数据需要大量的资源并且无法一次性完成.</p>
+<p>At the same time, our method is anchor-free while taking all advantages of sparse 3D convolutions.</p>
+<p>FCAF3D是一种anchor-free的方法并且有效利用了稀疏三维卷积.</p>
+<h4 id="rgb-based-anchor-free-object-detection">RGB-based anchor-free object detection</h4>
+<p>二维检测中的anchor-free算法: FCOS.</p>
+<p>FCOS3D和ImVoxelNet借鉴了FCOS的思想.</p>
+<p>We adapt the ideas from aforementioned anchor-free methods to address the sparse irregular data.</p>
+<p>作者借鉴了上述的三种方法来解决稀疏的不规则的数据带来的问题.</p>
+<h3 id="proposed-method部分">Proposed Method部分</h3>
+<p>Following the standard 3D detection problem statement, FCAF3D <u>accepts <span class="math inline">\(N_{\text{pts}}\)</span> RGB-colored points</u> and <u>outputs a set of 3D object bounding boxes</u>.</p>
+<p>FCOS3D输入为<span class="math inline">\(N_{\text{pts}}\)</span>个包含RGB颜色信息的点, 输出为三维物体边界框构成的集合.</p>
+<p>The architecture of FCAF3D consists of three parts: a backbone, a neck, and a head.</p>
+<p>FCOS3D架构包含三部分: backbone、neck和head.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202112302104766.png" srcset="/img/loading.gif" lazyload /></p>
+<p>All convolutions and transposed convolutions are <u>three-dimensional</u> and <u>sparse</u>.</p>
+<p>所有的卷积和转置卷积都是三维稀疏卷积和三维稀疏转置卷积.</p>
+<h4 id="sparse-neural-network部分">Sparse Neural Network部分</h4>
+<h5 id="backbone">Backbone</h5>
+<p>The backbone in FCAF3D is <u>a sparse modiﬁcation of ResNet</u> where all 2D convolutions are replaced with sparse 3D convolutions.</p>
+<p>FCAF3D的backbone是ResNet的一个修改版本, 所有的二维卷积都换成了三维稀疏卷积.</p>
+<p>For brevity, we refer to the family of <u>sparse high-dimensional versions</u> of ResNet as to <u>HDResNet</u>.</p>
+<p>作者称稀疏高维版本的ResNet为HDResNet.</p>
+<h5 id="neck">Neck</h5>
+<p>The neck is <u>a simpliﬁed decoder</u> from GSDN.</p>
+<p>FCAF3D的neck是一个简化后的GSDN的解码器.</p>
+<p>Features on each level are processed with <u>one sparse transposed 3D convolution</u> and <u>one sparse 3D convolution</u>.</p>
+<p>各个层级的特征会被一个稀疏转置三维卷积操作和一个稀疏三位卷积操作处理.</p>
+<p>Each <u>transposed sparse 3D convolution</u> with a <u>kernel size of <span class="math inline">\(2\)</span></u> can increase the number of non-zero values <u>by <span class="math inline">\(2^3\)</span> times</u>.</p>
+<p>每个稀疏转置三维卷积的核大小是<span class="math inline">\(2\)</span>, 处理后的非零元素值的数目会变为原来的<span class="math inline">\(2^3\)</span>倍.</p>
+<p>To <u>prevent the rapid growth of required memory</u>, GSDN introduces the <u>pruning layer</u> that <u>ﬁlters all elements of input with a probability mask</u>.</p>
+<p>为避免内存的急速增长, GSDN引入剪枝层, 接用概率模板来过滤输入元素.</p>
+<p>In GSDN, feature level-wise probabilities are calculated with <u>an additional convolutional scoring layer</u>.</p>
+<p>GSDN使用额外的卷积层来获取不同特征层级的概率模板.</p>
+<p>This layer is trained with a special loss that <u>encourages consistency between the predicted sparsity and anchors</u>.</p>
+<p>GSDN使用一个特别的损失函数来保证预测稀疏程度和锚点的一致性.</p>
+<p>Speciﬁcally, voxel sparsity is set to be positive <u>if any of the subsequent anchors associated to the current voxel is positive</u>.</p>
+<p>体素稀疏度会被置为1, 如果此体素中任何一个子部分与锚点相关联.</p>
+<p>However, using this loss may be <u>suboptimal</u>, as <u>distant voxels</u> of an object might get assigned with a <u>low probability</u>.</p>
+<p>这种获取概率模板的方法是次优的, 因为隔物体较远的体素可能会得到一个很低的概率.</p>
+<p>For simplicity, we <u>remove the scoring layer</u> with the corresponding loss and <u>use probabilities from the classiﬁcation layer in the head instead</u>.</p>
+<p>为了简化, 作者去除了这个计算概率模板的卷积层以及针对这个卷积层设计的损失函数, 作者使用head中的分类层来替代这个卷积层的功能.</p>
+<p>We <u>do not tune the probability threshold</u> but <u>keep at most <span class="math inline">\(N_{\text{vox}}\)</span> voxels to control the sparsity level</u>, where <span class="math inline">\(N_{\text{vox}}\)</span> equals the number of input points <span class="math inline">\(N_{\text{pts}}\)</span>.</p>
+<p>作者不使用概率模板, 而是直接根据概率从高到低排序选择前<span class="math inline">\(N_{\text{vox}}\)</span>个体素, <span class="math inline">\(N_{\text{vox}}\)</span>与输入点的个数<span class="math inline">\(N_{\text{pts}}\)</span>相同.</p>
+<p>We claim this to be a simple yet elegant way to prevent sparsity growth since reusing the same hyperparameter makes the process more transparent and consistent.</p>
+<p>作者认为这种简单的方法能够保持稀疏性, 重复利用超参数让整个处理过程更加透明和一致.</p>
+<h5 id="head">Head</h5>
+<p>The anchor-free head of FCAF3D consists of <u>three parallel sparse convolutional layers with weights shared across feature levels</u>.</p>
+<p>FCAF3D的head部分是anchor-free的, 由三个平行的卷积层组成, 不同的特征层级使用的head共享同一个权重.</p>
+<p>For each location <span class="math inline">\((\hat{x}, \hat{y}, \hat{z})\)</span>, these sparse convolutional layers output <u>classiﬁcation probabilities <span class="math inline">\(\hat{\boldsymbol{p}}\)</span></u>, <u>bounding box regression parameters <span class="math inline">\(\boldsymbol{\delta}\)</span></u>, and <u>centerness <span class="math inline">\(\hat{c}\)</span></u>, respectively.</p>
+<p>对每个位置<span class="math inline">\((\hat{x}, \hat{y}, \hat{z})\)</span>, 这三个平行的卷积层分别输出分类概率<span class="math inline">\(\hat{\boldsymbol{p}}\)</span>、边界框回归参数<span class="math inline">\(\boldsymbol{\delta}\)</span>和中心度(感受野中心与目标物中心的靠近程度)<span class="math inline">\(\hat{c}\)</span>.</p>
+<p>This design is similar to the simple and light-weight head of <u>FCOS</u> but adapted to 3D data.</p>
+<p>FCAF3D的head部分与FCOS的head设计类似.</p>
+<h5 id="multi-level-location-assignment">Multi-level location assignment</h5>
+<p>During training, FCAF3D outputs <u>locations <span class="math inline">\(\{(\hat{x}, \hat{y}, \hat{z})\}\)</span></u> for different feature levels, which should be <u>assigned to ground truth boxes <span class="math inline">\(\{\boldsymbol{b}\}\)</span></u> so the loss can be calculated.</p>
+<p>为了计算损失函数, 我们需要给FCAF3D在不同特征层级的位置<span class="math inline">\(\{(\hat{x}, \hat{y}, \hat{z})\}\)</span>匹配一个边界框标签<span class="math inline">\(\{\boldsymbol{b}\}\)</span>.</p>
+<p>FCOS and ImVoxelNet stick to the following scheme:</p>
+<ul>
+<li>For each location, only ground truth bounding boxes that <u>cover this location</u> are selected.</li>
+<li>Then, the bounding boxes with at least one face <u>further from this location than a threshold</u> are ﬁltered out.</li>
+<li>Finally, the <u>bounding box with the least volume</u> is assigned to this location.</li>
+</ul>
+<p>FCOS and ImVoxelNet使用如下方式:</p>
+<ul>
+<li>对每个位置, 覆盖到这个位置的边界框都会被选中.</li>
+<li>去除那些有多于一个面到此位置的距离超过设定的阈值的边界框.</li>
+<li>在剩下的边界框中容量最小的框会被作为此位置的标签.</li>
+</ul>
+<p>Such an assignment strategy is <u>suboptimal</u>, and its alterations are widely explored in 2D object detection.</p>
+<p>这种匹配方式是次优的.</p>
+<p>ImVoxelNet uses a modiﬁcation that requires <u>hand-tuning the face distance threshold for each feature level</u>.</p>
+<p>ImVoxelNet需要手动设定每一个特征层级的距离阈值.</p>
+<p>We propose a simpliﬁed solution designed for sparse data that <u>does not require tuning dataset-speciﬁc hyperparameters</u>.</p>
+<ul>
+<li>For each bounding box, we select <u>the last feature level</u> for which this <u>bounding box covers at least <span class="math inline">\(N_{\text{loc}}\)</span> locations</u>.</li>
+<li>If the bounding box covers less than <span class="math inline">\(N_{\text{loc}}\)</span> locations at each feature level, we opt for the ﬁrst feature level.</li>
+<li>We also ﬁlter locations via center sampling. In center sampling, only the points close to the center of the bounding box are considered positive matches.</li>
+</ul>
+<p>作者使用一个简化的不需要依赖数据集的超参数的方案来配对.</p>
+<ul>
+<li>对每个边界框, 我们选取此边界框框住多余<span class="math inline">\(N_{\text{loc}}\)</span>个位置的特征层级中的最后的层级.</li>
+<li>如果所有层级中此边界框框住的位置数量都少于<span class="math inline">\(N_{\text{loc}}\)</span>, 那么选取第一个特征层级.</li>
+<li>对于选定的层级中, 我们对位置进行中心采样, 只有靠近边界框中心的位置会被认为是匹配上的.</li>
+</ul>
+<p>After the location assignment, some ﬁnal locations <span class="math inline">\(\{(\hat{x}, \hat{y}, \hat{z})\}\)</span> are matched with ground truth bounding boxes <span class="math inline">\(\boldsymbol{b}_{\hat{x}, \hat{y}, \hat{z}}\)</span>.</p>
+<p>位置匹配之后, 一些位置<span class="math inline">\(\{(\hat{x}, \hat{y}, \hat{z})\}\)</span>会与边界框标签<span class="math inline">\(\boldsymbol{b}_{\hat{x}, \hat{y}, \hat{z}}\)</span>配对.</p>
+<p>Consequently, these locations become associated with ground truth labels <span class="math inline">\(p_{\hat{x}, \hat{y}, \hat{z}}\)</span> and 3D centerness values <span class="math inline">\(c_{\hat{x}, \hat{y}, \hat{z}}\)</span>.</p>
+<p>这些位置也会与对应的标签<span class="math inline">\(p_{\hat{x}, \hat{y}, \hat{z}}\)</span>和中心度数值<span class="math inline">\(c_{\hat{x}, \hat{y}, \hat{z}}\)</span>匹配.</p>
+<p>During inference, the <u>scores <span class="math inline">\(\hat{\boldsymbol{p}}\)</span> are multiplied by 3D centerness <span class="math inline">\(\hat{c}\)</span></u> just before applying NMS.</p>
+<p>在预测时, 分类分数<span class="math inline">\(\hat{\boldsymbol{p}}\)</span>会乘上中心度<span class="math inline">\(\hat{c}\)</span>作为边界框置信度进行NMS.</p>
+<h5 id="loss-function">Loss function</h5>
+<p>The <u>overall loss function</u> is formulated as follows: <span class="math display">\[
+\begin{array}{r}
+L=\frac{1}{N_{\mathrm{pos}}} \sum_{\hat{x}, \hat{y}, \hat{z}}\left(L_{\mathrm{cls}}(\hat{\boldsymbol{p}}, p)+\mathbb{1}_{\left\{p_{\hat{x}, \hat{y}, \hat{z}} \neq 0\right\}} L_{\mathrm{reg}}(\hat{\boldsymbol{b}}, \boldsymbol{b})+\mathbb{1}_{\left\{p_{\hat{x}, \hat{y}, \hat{z}} \neq 0\right\}} L_{\mathrm{cntr}}(\hat{c}, c)\right)
+\end{array}
+\]</span> 以上是整体的损失函数.</p>
+<p>Here, the <u>number of matched locations</u> <span class="math inline">\(N_{\text{pos}}\)</span> is <span class="math inline">\(\sum_{\hat{x}, \hat{y}, \hat{z}} \mathbb{1}_{\left\{p_{\hat{x}, \hat{y}, \hat{z}} \neq 0\right\}}\)</span>.</p>
+<p>匹配到的位置点总数<span class="math inline">\(N_{\text{pos}} = \sum_{\hat{x}, \hat{y}, \hat{z}} \mathbb{1}_{\left\{p_{\hat{x}, \hat{y}, \hat{z}} \neq 0\right\}}\)</span>.</p>
+<p>Classiﬁcation loss <span class="math inline">\(L_{\text{cls}}\)</span> is calculated as a focal loss, regression loss <span class="math inline">\(L_{\text{reg}}\)</span> is IoU, and centerness loss <span class="math inline">\(L_{\text{cntr}}\)</span> is binary cross-entropy.</p>
+<p>类别损失<span class="math inline">\(L_{\text{cls}}\)</span>使用focal loss, 回归损失<span class="math inline">\(L_{\text{reg}}\)</span>使用IoU, 中心损失<span class="math inline">\(L_{\text{cntr}}\)</span>使用binary cross-entropy.</p>
+<p>For each loss, <u>predicted values are denoted with a hat</u>.</p>
+<p>所有预测值都有hat标记.</p>
+<h4 id="bounding-box-parametrization部分">Bounding Box Parametrization部分</h4>
+<p>The 3D object bounding boxes can be <u>axis-aligned (AABB)</u> or <u>oriented (OBB)</u>.</p>
+<p>三维物体边界框分为坐标轴对齐的边界框AABB和有向边界框OBB.</p>
+<p><u>An AABB can be described as <span class="math inline">\(\boldsymbol{b}^{\text{AABB}}=(x, y, z, w, l, h)\)</span></u>, while the deﬁnition of <u>an OBB includes a <em>heading angle</em> <span class="math inline">\(\theta\)</span>: <span class="math inline">\(\boldsymbol{b}^{\text{OBB}}=(x, y, z, w, l, h, \theta)\)</span></u>.</p>
+<p>坐标轴对齐的边界框AABB定义为<span class="math inline">\(\boldsymbol{b}^{\text{AABB}}=(x, y, z, w, l, h)\)</span>, 有向边界框OBB定义为<span class="math inline">\(\boldsymbol{b}^{\text{OBB}}=(x, y, z, w, l, h, \theta)\)</span>, 其中<span class="math inline">\(\theta\)</span>为朝向角.</p>
+<p>In both formulas, <u><span class="math inline">\(x, y, z\)</span> denote the coordinates of the center of a bounding box</u>, while <u><span class="math inline">\(w, l, h\)</span> are its width, length, and height</u>, respectively.</p>
+<p>在两种边界框的定义中, <span class="math inline">\(x, y, z\)</span>表示边界框中心点的坐标, <span class="math inline">\(w, l, h\)</span>表示边界框的宽、长和高.</p>
+<h5 id="aabb-parametrization">AABB parametrization</h5>
+<p>Speciﬁcally, for <u>a ground truth AABB <span class="math inline">\((x, y, z, w, l, h)\)</span></u> and <u>a location <span class="math inline">\((\hat{x}, \hat{y}, \hat{z})\)</span></u>, <u><span class="math inline">\(\boldsymbol{\delta}\)</span> can be formulated as a 6-tuple</u>: <span class="math display">\[
+\begin{gathered}
+\delta_{1}=x+\frac{w}{2}-\hat{x}, \delta_{2}=\hat{x}-x+\frac{w}{2}, \delta_{3}=y+\frac{l}{2}-\hat{y} \\
+\delta_{4}=\hat{y}-y+\frac{l}{2}, \delta_{5}=z+\frac{h}{2}-\hat{z}, \delta_{6}=\hat{z}-z+\frac{h}{2}
+\end{gathered}
+\]</span></p>
+<p>对于一个坐标轴对齐的边界框AABB<span class="math inline">\((x, y, z, w, l, h)\)</span>和一个位置<span class="math inline">\((\hat{x}, \hat{y}, \hat{z})\)</span>, <span class="math inline">\(\delta\)</span>可以参数化为以上的形式(其实就是位置点到六个面的距离).</p>
+<p>The predicted AABB <span class="math inline">\(\hat{\boldsymbol{b}}\)</span> can be trivially obtained from <span class="math inline">\(\boldsymbol{\delta}\)</span>.</p>
+<p>使用位置坐标及其对应的<span class="math inline">\(\boldsymbol{\delta}\)</span>即可反解出对应的坐标轴对齐的边界框AABB<span class="math inline">\((x, y, z, w, l, h)\)</span>. <span class="math display">\[
+\begin{gathered}
+w = \delta_{1} + \delta_{2}, l = \delta_{3} + \delta_{4}, h = \delta_{5} + \delta_{6} \\
+x = \frac{\delta_{1} - \delta_{2}}{2} + \hat{x}, y = \frac{\delta_{3} - \delta_{4}}{2} + \hat{y}, z = \frac{\delta_{5} - \delta_{6}}{2} + \hat{z}
+\end{gathered}
+\]</span></p>
+<h5 id="heading-angle-estimation">Heading angle estimation</h5>
+<p>All existing state-of-the-art 3D object detection methods from point clouds <u>address the heading angle estimation task as classiﬁcation followed by regression</u>.</p>
+<p>所有已有的使用点云的三位检测SOTA算法都将朝向角估计视为回归之后的分类任务.</p>
+<p>The <u>heading angle is classiﬁed into bins</u>; then, the <u>precise value of the heading angle is regressed within a bin</u>.</p>
+<p>朝向角先被分类为bins中的某一个bin, 之后再回归朝向角和这个bin之间的残差.</p>
+<p>For indoor scenes, there are typically <u><span class="math inline">\(12\)</span> bins that uniformly divide the range from <span class="math inline">\(0\)</span> to <span class="math inline">\(2\pi\)</span> into <span class="math inline">\(12\)</span> sectors</u>.</p>
+<p>对于室内场景, 通常在<span class="math inline">\(0\)</span>到<span class="math inline">\(2\pi\)</span>之间均匀划分<span class="math inline">\(12\)</span>个部分.</p>
+<p>For outdoor scenes, <u>the number of bins is usually set to two</u> as the objects on the road can <u>be oriented either parallel or perpendicular to the road</u>.</p>
+<p>对于室外场景, 通常划分两个类别, 因为路上的物体一般只有与道路平行或垂直这两种情况.</p>
+<p>When a heading angle bin is chosen, the <u>actual value of the heading angle should be estimated through regression</u>.</p>
+<p>得到朝向角的bin之后, 真实数值需要使用回归进行估计.</p>
+<p>VoteNet and other voting-based methods estimate the value of missing <span class="math inline">\(\theta\)</span> directly.</p>
+<p>VoteNet和其他voting-based的方法直接估计朝向角<span class="math inline">\(\theta\)</span>的数值.</p>
+<p>Outdoor methods explore more elaborate approaches, e.g. predicting the values of trigonometric functions.</p>
+<p>室外方法探索了更加复杂的方式, 例如预测三角函数的数值.</p>
+<p>For instance, SMOKE estimates the values of <span class="math inline">\(\sin{\theta}\)</span> and <span class="math inline">\(\cos{\theta}\)</span>, which allows recovering the heading angle.</p>
+<p>例如, SMOKE估计了<span class="math inline">\(\sin{\theta}\)</span>和<span class="math inline">\(\cos{\theta}\)</span>的数值, 通过这两个数值我们可以恢复朝向角的角度.</p>
+<p>Figure below depicts indoor objects where the <u>heading angle cannot be deﬁned unambiguously</u>.</p>
+<p>下图展示了在室内的物体的朝向角无法被没有歧义地被定义.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202112311353526.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Ground truth angle annotations are random for these objects, making heading angle bin classiﬁcation meaningless.</p>
+<p>这些物体的朝向角的标注是随机的, 这使得朝向角的bin分类没有意义.</p>
+<p><u>To avoid penalizing the correct predictions that do not coincide with annotations</u>, we <u>use rotated IoU as a loss function</u>, since its value is not affected by the choice of a heading angle among possible options.</p>
+<p>为了避免惩罚与标注不相符的正确的预测角, 作者使用旋转后的IoU作为损失函数, 因为旋转后的IoU不会被朝向角的固定标注值影响.</p>
+<p>Thus, we propose <u>OBB parametrization that allows considering the rotation ambiguity</u>.</p>
+<p>因此, 作者提出了考虑了旋转歧义的有向边界框的参数化方法.</p>
+<h5 id="proposed-mobius-obb-parametrization">Proposed Mobius OBB parametrization</h5>
+<p>Assuming that <u>an OBB has the parameters <span class="math inline">\((x, y, z, w, l, h, \theta)\)</span></u>, let us <u>denote <span class="math inline">\(q=\frac{w}{l}\)</span></u>.</p>
+<p>假设有向边界框有参数<span class="math inline">\((x, y, z, w, l, h, \theta)\)</span>, 记<span class="math inline">\(q=\frac{w}{l}\)</span>.</p>
+<p>If <span class="math inline">\(x, y, z, w + l, h\)</span> are ﬁxed, it turns out that the <u>OBBs with <span class="math inline">\((q, \theta),\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right),(q, \theta+\pi),\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span> deﬁne the same bounding box</u>.</p>
+<p>如果<span class="math inline">\(x, y, z, w + l, h\)</span>都是固定的, <span class="math inline">\((q, \theta),\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right),(q, \theta+\pi),\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span>所代表的有向边界框等价.</p>
+<p>We notice that the set of <span class="math inline">\((q, \theta)\)</span>, where <span class="math inline">\(\theta \in (0, 2\pi]\)</span>, <span class="math inline">\(q \in (0, +\inf)\)</span> is <u>topologically equivalent to a Mobius strip</u> up to this equivalence relation.</p>
+<p>作者注意到<span class="math inline">\((q, \theta)\)</span>参数集合在拓扑不变性层面和莫比乌斯环相似, 其中<span class="math inline">\(\theta \in (0, 2\pi]\)</span>, <span class="math inline">\(q \in (0, +\inf)\)</span>.</p>
+<p>Hence, we can reformulate the task of estimating <span class="math inline">\((q, \theta)\)</span> as a task of <u>predicting a point on a Mobius strip</u>.</p>
+<p>于是估计<span class="math inline">\((q, \theta)\)</span>的任务转化为了估计莫比乌斯环上的一个点.</p>
+<p>A natural way to embed a Mobius strip being a two-dimensional manifold to Euclidean space is the following:</p>
+<p>一个将莫比乌斯环, 这一个二维流形, 嵌入欧几里得空间的方式如下: <span class="math display">\[
+(q, \theta) \mapsto(\ln (q) \sin (2 \theta), \ln (q) \cos (2 \theta), \sin (4 \theta), \cos (4 \theta))
+\]</span> It is easy to verify that <u>4 points are mapped into a single point</u> in Euclidean space.</p>
+<p>可以验证之前提到的四个等价参数在上述表示的情况下对应同一个点.</p>
+<p>However, the experiments reveal that <u>predicting only <span class="math inline">\(\ln{(q)} \sin{(2\theta)}\)</span> and <span class="math inline">\(\ln{(q)} \cos{(2θ)}\)</span> improves results compared to predicting all four values</u>.</p>
+<p>实验证明只预测<span class="math inline">\(\ln{(q)} \sin{(2\theta)}\)</span>和<span class="math inline">\(\ln{(q)} \cos{(2θ)}\)</span>比预测全部的四个值更能有效提升预测结果.</p>
+<p>Thereby, we opt for <u>a pseudo embedding of a Mobius strip to <span class="math inline">\(\mathbb{R}^{2}\)</span></u>.</p>
+<p>于是, 我们优化一个伪莫比乌斯二维嵌入表达式.</p>
+<p>We call it pseudo since the entire center circle of a Mobius strip deﬁned by <span class="math inline">\(\ln{(q)} = 0\)</span> maps to <span class="math inline">\((0, 0)\)</span>.</p>
+<p>这个是伪莫比乌斯二维嵌入表达式是因为, 当<span class="math inline">\(\ln{(q)} = 0\)</span>的时候, 莫比乌斯环退化为一个圆且前两个参数变为<span class="math inline">\((0, 0)\)</span>.</p>
+<p>Accordingly, we <u>cannot distinguish points with <span class="math inline">\(\ln{(q)} = 0\)</span></u>.</p>
+<p>因此, 我们无法处理<span class="math inline">\(\ln{(q)} = 0\)</span>的点.</p>
+<p>However, <span class="math inline">\(\ln{(q)} = 0\)</span> implies strict equality of <span class="math inline">\(w\)</span> and <span class="math inline">\(l\)</span>, which is <u>rare in real-world scenarios</u>.</p>
+<p>然而, <span class="math inline">\(\ln{(q)} = 0\)</span>表示<span class="math inline">\(w\)</span>和<span class="math inline">\(l\)</span>相等, 在真实世界中, 这是很稀少的情况.</p>
+<p>Moreover, the choice of an angle has a <u>minor effect on the IoU</u> if <span class="math inline">\(w = l\)</span>; thereby, we <u>ignore this rare case</u> for the sake of detection accuracy and simplicity of the method.</p>
+<p>而且<span class="math inline">\(w = l\)</span>对于使用IoU损失函数来监督角度的选择的影响很小. 因此, 作者忽略了<span class="math inline">\(w = l\)</span>这种罕见的情况为了检测的准确性和方法的简洁性.</p>
+<p>Overall, we obtain <u>a novel OBB parametrization</u>:</p>
+<p>于是, 作者获得了一个全新的有向边界框的参数化方式: <span class="math display">\[
+\delta_{7}=\ln \frac{w}{l} \sin (2 \theta), \delta_{8}=\ln \frac{w}{l} \cos (2 \theta)
+\]</span> In standard 3D bounding box parametrization (AABB), <u><span class="math inline">\(\hat{\boldsymbol{b}}\)</span> is trivially derived from <span class="math inline">\(\boldsymbol{\delta}\)</span></u>.</p>
+<p>在坐标轴对齐的边界框AABB的参数化模型中, <span class="math inline">\(\hat{\boldsymbol{b}}\)</span>可以轻而易举地从<span class="math inline">\(\boldsymbol{\delta}\)</span>中派生出来.</p>
+<p>In the proposed parametrization, <span class="math inline">\(w, l, \theta\)</span> are non-trivial and can be obtained via the following:</p>
+<p>在提出的新的有向边界框的参数化模型中, <span class="math inline">\(w, l, \theta\)</span>需要通过以下方式获取: <span class="math display">\[
+w=\frac{s q}{1+q}, l=\frac{s}{1+q}, \theta=\frac{1}{2} \arctan \frac{\delta_{7}}{\delta_{8}}
+\]</span> where ratio <span class="math inline">\(q=e^{\sqrt{\delta_{7}^{2}+\delta_{8}^{2}}}\)</span> and size <span class="math inline">\(s=\delta_1+\delta_2+\delta_3+\delta_4\)</span>.</p>
+<h5 id="莫比乌斯环参数解释">莫比乌斯环参数解释</h5>
+<blockquote>
+<p><em>参考资料: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/75237170">莫比乌斯带的参数方程是怎么来的？它又为什么没有方向呢？</a></em></p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202112311824156.png" srcset="/img/loading.gif" lazyload /></p>
+<p>莫比乌斯环参数: <span class="math inline">\((q, \theta) \mapsto (\ln{(q)}\sin{(2\theta)}, \ln{(q)}\cos{(2\theta)}, \sin{(4\theta)}, \cos{(4\theta)})\)</span>, <span class="math inline">\(q\in (0, +\inf)\)</span>, <span class="math inline">\(\theta \in (0, 2\pi]\)</span>.</p>
+<p>后两个参数<span class="math inline">\((\sin{(4\theta)}, \cos{(4\theta)})\)</span>在<span class="math inline">\(xoy\)</span>平面确定圆<span class="math inline">\(C_1\)</span>, 圆心为原点<span class="math inline">\(o\)</span>, 半径<span class="math inline">\(r\)</span>为<span class="math inline">\(1\)</span>, 假设某一角度<span class="math inline">\(\theta\)</span>对应的点为<span class="math inline">\(P\)</span>, 射线<span class="math inline">\(\vec{ol}\)</span>是从原点<span class="math inline">\(o\)</span>引向点<span class="math inline">\(P\)</span>的射线, 如下图所示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021151199.png" srcset="/img/loading.gif" lazyload /></p>
+<p>前两个参数<span class="math inline">\((\ln{(q)}\sin{(2\theta)}, \ln{(q)}\cos{(2\theta)})\)</span>在<span class="math inline">\(zol\)</span>平面确定圆<span class="math inline">\(C_2\)</span>, 平面<span class="math inline">\(zol\)</span>与平面<span class="math inline">\(xoy\)</span>垂直且交线为射线<span class="math inline">\(ol\)</span>所在直线, 圆<span class="math inline">\(C_2\)</span>的圆心为点<span class="math inline">\(P\)</span>(即<span class="math inline">\(xoy\)</span>平面上的<span class="math inline">\(P\)</span>点), 圆<span class="math inline">\(C_2\)</span>的半径<span class="math inline">\(r\)</span>为<span class="math inline">\(\ln{(q)}\)</span>, 角度<span class="math inline">\(\theta\)</span>对应的点为<span class="math inline">\(Q\)</span>, <span class="math inline">\(Q\)</span>点即为参数<span class="math inline">\(q\)</span>和<span class="math inline">\(\theta\)</span>确定的莫比乌斯环上的一点, 如下图所示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021153898.png" srcset="/img/loading.gif" lazyload /></p>
+<p>由于<span class="math inline">\(q \in (0, +\inf)\)</span>, 为了能够表示完整的直径, 需要使用<span class="math inline">\(\ln{(q)}\)</span>将值域拓展到<span class="math inline">\((-\inf, +\inf)\)</span>以涵盖整个直径的范围而不是只有半径的范围(意思是<span class="math inline">\(\vec{PQ}\)</span>可以反向延伸), 同时<span class="math inline">\(\ln{(q)}\)</span>可以使得文中提出的四组参数<span class="math inline">\((q, \theta),\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right),(q, \theta+\pi),\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span>在参数化之后等价.</p>
+<p>由于莫比乌斯环的性质, 莫比乌斯环上的点在运动时, 在圆<span class="math inline">\(C_1\)</span>上的角速度为圆<span class="math inline">\(C_2\)</span>上的两倍, 因此两个圆的表达式中, <span class="math inline">\(\theta\)</span>前面的系数也应该保持<span class="math inline">\(2:1\)</span>的关系.</p>
+<p>由于需要使得文中提出的四组参数<span class="math inline">\((q, \theta),\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right),(q, \theta+\pi),\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span>在参数化之后等价, 所以不直接用<span class="math inline">\((2 \theta, \theta)\)</span>而是用<span class="math inline">\((4 \theta, 2 \theta)\)</span>.</p>
+<h3 id="experiments部分">Experiments部分</h3>
+<h4 id="datasets部分">Datasets部分</h4>
+<p>We evaluate our method on three 3D object detection benchmarks: <u>ScanNet V2, SUN RGB-D, and S3DIS</u>.</p>
+<p>作者在ScanNet V2、SUN RGB-D和S3DIS上测试了FCAF3D的算法性能.</p>
+<p>For all datasets, we use <u>mean average precision (mAP) under IoU thresholds of 0.25 and 0.5</u> as a metric.</p>
+<p>对于所有数据集, 作者使用<span class="math inline">\(mAP@0.25\)</span>和<span class="math inline">\(mAP@0.5\)</span>作为评价指标.</p>
+<h5 id="scannet-v2">ScanNet V2</h5>
+<p>The ScanNet dataset contains <u>1513 reconstructed 3D indoor scans</u> with <u>per-point instance and semantic labels of 18 object categories</u>.</p>
+<p>ScanNet数据集包含1513个三维室内场景, 每个场景带有点级别的实例标注和18个物体类别的语义标注.</p>
+<p>Given this annotation, we <u>calculate AABBs through a standard approach</u>.</p>
+<p>ScanNet数据集使用的是AABB边界框.</p>
+<p>The <u>training subset is comprised of 1201 scans</u>, while <u>the resting 312 scans are left for validation</u>.</p>
+<p>ScanNet数据集的训练集包含1201个扫描场景, ScanNet数据集的验证集包含剩下的312个扫描场景.</p>
+<h5 id="sun-rgb-d">SUN RGB-D</h5>
+<p>SUN RGB-D is a monocular dataset for 3D scene understanding <u>containing more than 10,000 indoor RGB-D images</u>.</p>
+<p>SUN RGB-D数据集包含超过10000个室内场景RGB-D图片.</p>
+<p>The annotation consists of <u>per-point semantic labels and OBBs of 37 object categories</u>.</p>
+<p>SUN RGB-D数据集标注包含点级别的语义标签和37类物体的OBB边界框.</p>
+<p>We run experiments with objects of the <u>10 most common categories</u>.</p>
+<p>作者在10类最常见的类别上进行了实验.</p>
+<p>The <u>training and validation splits contain 5285 and 5050 point clouds</u>, respectively.</p>
+<p>SUN RGB-D数据集的训练集包含5285个点云, SUN RGB-D数据集验证集包含5050个点云.</p>
+<h5 id="s3dis">S3DIS</h5>
+<p>Stanford Large-Scale 3D Indoor Spaces dataset <u>contains 3D scans of 6 buildings with 272 rooms</u>.</p>
+<p>S3DIS数据集包含6栋建筑物的272个房间的三维场景扫描数据.</p>
+<p>Each scan is annotated <u>with instance and semantic labels of seven structural elements (e.g. ﬂoor and ceiling) and ﬁve furniture categories</u>.</p>
+<p>S3DIS数据集的每个扫描数据包含7类结构元素和5个家具类别的实例和物体标签.</p>
+<p>We evaluate our method on <u>furniture categories only</u>.</p>
+<p>作者在家具类别上进行了实验.</p>
+<p>Similar to ScanNet, <u>AABBs are derived from 3D semantics</u>.</p>
+<p>S3DIS数据集与ScanNet数据集类似, 使用AABB边界框.</p>
+<p>We use the ofﬁcial split, where <u>68 rooms from Area 5 are intended for validation</u>, while the <u>remaining 204 rooms comprise the training subset</u>.</p>
+<p>S3DIS数据集训练集包含区域5之外的204个房间, S3DIS数据集测试集包含区域5的68个房间.</p>
+<h4 id="implementation-details部分">Implementation Details部分</h4>
+<h5 id="hyperparameters">Hyperparameters</h5>
+<p>First, <u>the size of output classiﬁcation layer equals the number of object categories</u>, which is <u>18, 10, and 5 for ScanNet, SUN RGB-D, and S3DIS</u>.</p>
+<p>分类层的输出与各数据集的物体类别匹配, ScanNet V2是18, SUN RGB-D是10, S3DIS是5.</p>
+<p>Second, <u>SUN RGB-D contains OBBs</u>, so we <u>predict additional targets <span class="math inline">\(\delta_7\)</span> and <span class="math inline">\(\delta_8\)</span> for this dataset</u>; note that the <u>loss function is not affected</u>.</p>
+<p>只有SUN RGB-D数据集包含OBB边界框, 因此只在SUN RGB-D数据集中预测<span class="math inline">\(\delta_7\)</span>和<span class="math inline">\(\delta_8\)</span>, 损失函数不受影响.</p>
+<p>Last, <u>ScanNet, SUN RGB-D, and S3DIS contain different numbers of scenes</u>, so we <u>repeat each scene 10, 3, and 13 times per epoch</u>, respectively.</p>
+<p>ScanNet、SUN RGB-D和S3DIS数据集场景数量各不相同, 在每个epoch中, 这三个数据集中每个场景分别重复出现10、3和13次.</p>
+<p>In initial point cloud voxelization, we <u>set the voxel size to 0.01m and the number of points <span class="math inline">\(N_{\text{pts}}\)</span> to 100,000</u>.</p>
+<p>在点云体素化的过程中, 作者设置体素大小为0.01米, 设置点数量<span class="math inline">\(N_{\text{pts}}=100000\)</span>.</p>
+<p>Respectively, <u><span class="math inline">\(N_{\text{vox}}\)</span> equals to 100,000.</u></p>
+<p>对应的, <span class="math inline">\(N_{\text{vox}}\)</span>也设置为100000.</p>
+<p><u>Both ATSS and FCOS set <span class="math inline">\(N_{\text{loc}}\)</span> to <span class="math inline">\(3^2\)</span></u> for 2D object detection.</p>
+<p>在二维检测中, ATSS和FCOS算法都设置<span class="math inline">\(N_{\text{loc}}\)</span>为<span class="math inline">\(3^2\)</span>.</p>
+<p>Accordingly, we select a feature level so <u>bounding box covers at least <span class="math inline">\(N_{\text{loc}} = 3^3\)</span> locations</u>.</p>
+<p>同样地, 作者设置<span class="math inline">\(N_{\text{loc}}\)</span>为<span class="math inline">\(3^3\)</span>(因为是三维检测).</p>
+<p>By center sampling, we <u>select 18 locations</u>, while the <u>NMS IoU threshold is 0.5</u>.</p>
+<p>通过中心点采样, 作者选取18个位置, 同时设置NMS的IoU阈值为0.5.</p>
+<h5 id="training">Training</h5>
+<p>We implement our FCAF3D <u>using the MMdetection3D framework</u>.</p>
+<p>作者使用MMdetection3D架构实现FCAF3D.</p>
+<p>The overall training procedure follows the default scheme from MMdetection: <u>training takes 12 epochs with the learning rate decreasing on the 8th and the 11th epochs</u>.</p>
+<p>训练过程遵循默认的MMdetection的设置: 训练12个epoch, 学习率在第8个和第11个epoch下降.</p>
+<p>We employ the <u>Adam optimizer with an initial learning rate of 0.001 and weight decay of 0.0001</u>.</p>
+<p>作者使用Adam优化器优化学习率, 初始学习率设置为0.001, 权重衰减设置为0.0001.</p>
+<p>All models are trained on two NVidia V100 with a <u>batch size of 8</u>.</p>
+<p>所有的模型都在两块NVidia V100上训练, 批大小是8.</p>
+<p>Evaluation and performance tests are run on a single NVidia GTX1080Ti.</p>
+<p>评估和表现测试都是在单张NVidia GTX1080Ti上完成的.</p>
+<h5 id="evaluation">Evaluation</h5>
+<p>Both training and evaluation procedures are randomized, as <u>the raw point clouds are randomly sampled to select <span class="math inline">\(N_{\text{pts}}\)</span> for the input</u>.</p>
+<p>由于每次都会在原始点云上随机采样<span class="math inline">\(N_{\text{pts}}\)</span>个点, 训练和验证过程都是随机的.</p>
+<p>Thus, we re-run all the experiments to <u>obtain statistically signiﬁcant results</u>.</p>
+<p>因此, 作者反复进行实验来获取统计学上显著的结果.</p>
+<p>We run <u>training 5 times and test each trained model 5 times independently</u>.</p>
+<p>作者独立的训练了5个模型, 每个模型分别独立测试5次.</p>
+<p>We report both the <u>best and average metrics across all <span class="math inline">\(5 \times 5\)</span> trials</u>.</p>
+<p>作者报告了这<span class="math inline">\(5 \times 5\)</span>实验中评价指标的最优值和均值.</p>
+<h3 id="results部分">Results部分</h3>
+<h4 id="comparison-with-state-of-the-art-methods部分">Comparison with State-of-the-art Methods部分</h4>
+<p>Results of FCAF3D and existing indoor 3D object detection methods that <u>accept point clouds</u>.</p>
+<p>FCAF3D和现有的接受点云输入的室内三维物体检测方法的实验结果.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021131231.png" srcset="/img/loading.gif" lazyload /></p>
+<p>The reported metric value is the <u>best one across 25 trials</u>; the <u>average value is given in brackets</u>.</p>
+<p>在FCAF3D的25组模型中, 括号外的是表现最好的模型的评价指标, 括号内是所有模型评价指标的均值.</p>
+<h4 id="object-geometry-priors部分">Object Geometry Priors部分</h4>
+<p>VoteNet and ImVoteNet have the <u>same head</u> and are trained with the <u>same losses</u>.</p>
+<p>VoteNet和ImVoteNet有相同的head和相同的损失函数.</p>
+<p>Among them, there are 4 prior losses: <u>size classiﬁcation loss, size regression loss, direction classiﬁcation loss, and direction regression loss</u>.</p>
+<p>VoteNet和ImVoteNet的与先验信息有关的损失函数包含: 大小分类损失, 大小回归损失, 朝向分类损失和朝向回归损失.</p>
+<p><u>Both classiﬁcation losses correspond to targets parametrized using priors</u> (per-category mean object sizes and a set of angle bins).</p>
+<p>大小分类函数和朝向分类函数都与使用先验信息的参数有关.</p>
+<p>Similar to FCAF3D, we <u>replace the aforementioned losses with a rotated IoU loss with Mobius parametrization</u>.</p>
+<p>作者将VoteNet和ImVoteNet的上述损失函数更换为旋转IoU损失并且将边界框的参数化方法更换为莫比乌斯参数化模型.</p>
+<p>To give a complete picture, we also <u>try a sin-cos parametrization used in the outdoor 3D object detection method SMOKE</u>.</p>
+<p>为了更完全的比较, 作者也尝试使用了在室外三维物体检测算法SMOKE中使用的sin-cos参数化方法进行对比实验.</p>
+<p>The rotated IoU loss allows <u>decreasing the number of trainable parameters and hyperparameters</u>, including geometry priors and loss weights.</p>
+<p>旋转IoU损失可以有效减少训练的参数量和超参数的数量.</p>
+<p>ImVoxelNet <u>does not use a classiﬁcation+regression scheme to estimate heading angle</u> but <u>predicts its value directly in a single step</u>.</p>
+<p>ImVoxelNet不是采用分类加回归的方案预测朝向角, 其直接预测朝向角的数值.</p>
+<p>Since the original ImVoxelNet uses the rotated IoU loss, we do not need to remove redundant losses, <u>only to change the parametrization</u>.</p>
+<p>ImVoxelNet使用旋转IoU损失, 因此不用修改损失函数, 只用更改其边界框参数化方法.</p>
+<p>Results of several existing 3D object detection methods that accept inputs of different modalities, with different OBB parametrization on the SUN RGB-D dataset.</p>
+<p>使用不同损失函数和边界框参数的对比试验结果.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021147495.png" srcset="/img/loading.gif" lazyload /></p>
+<p>For FCAF3D, the reported metric value is the <u>best across 25 trials</u>; the <u>average value is given in brackets</u>.</p>
+<p>在FCAF3D的25组模型中, 括号外的是表现最好的模型的评价指标, 括号内是所有模型评价指标的均值.</p>
+<p>For other methods, we report results from the <u>original papers</u> and also the <u>results obtained through our experiments with MMdetection3D-based re-implementations (marked as Reimpl)</u>.</p>
+<p>其他方法的数据来自其原始论文和作者使用MMdetection3D重新实现的代码进行实验的结果(标记为Reimpl).</p>
+<h5 id="gsdn-anchors">GSDN anchors</h5>
+<p>Next, we study GSDN anchors to prove that the <u>generalization ability of anchor-based models is limited</u>.</p>
+<p>作者对GSDN进行实验来验证anchor-based算法的生成能力是有限的.</p>
+<p><u>Without domain-speciﬁc guidance in the form of anchors, GSDN demonstrates a poor performance</u>; hence, we claim this method to be <u>inﬂexible and non-generalized</u>.</p>
+<p>在没有anchor的情况下, GSDN表现很糟糕, 因此, 我们认为GSDN的延展性和生成能力很差.</p>
+<p>Results of fully convolutional 3D object detection methods that accept point clouds on ScanNet.</p>
+<p>GSDN和FCAF3D的对比实验结果.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021148945.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="ablation-study部分">Ablation Study部分</h4>
+<p>We run experiments with <u>varying voxel size, the number of points in a point cloud <span class="math inline">\(N_{\text{pts}}\)</span>, the number of locations selected by center sampling, and with and without centerness</u>.</p>
+<p>作者使用不同的体素大小、<span class="math inline">\(N_{\text{pts}}\)</span>、中心采样的位置点数量和有无中心度进行消融实验.</p>
+<p>Results of ablation studies on the voxel size, the number of points (which equals the number of voxels <span class="math inline">\(N_{\text{vox}}\)</span> in pruning), centerness, and center sampling in FCAF3D.</p>
+<p>消融实验的实验结果.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021407746.png" srcset="/img/loading.gif" lazyload /></p>
+<p>The reported metric value is the <u>best across 25 trials</u>; the <u>average value is given in brackets</u>.</p>
+<p>在FCAF3D的25组模型中, 括号外的是表现最好的模型的评价指标, 括号内是所有模型评价指标的均值.</p>
+<h5 id="voxel-size">Voxel size</h5>
+<p>Expectedly, <u>with an increasing voxel size, accuracy goes down</u>.</p>
+<p>体素越大, 精度越低.</p>
+<h5 id="number-of-points">Number of points</h5>
+<p>Similar to 2D images, <u>subsampled point clouds are sometimes referred to as <em>low-resolution</em> ones</u>.</p>
+<p>下采样的点云可以称之为低精度点云.</p>
+<p>Accordingly, they <u>contain less information than their <em>high-resolution</em> versions</u>.</p>
+<p>低精度点云相比于高精度点云包含更少的信息.</p>
+<p>As can be expected, <u>the fewer the points, the lower is detection accuracy</u>.</p>
+<p>点云数量越少, 精度越低.</p>
+<h5 id="centerness">Centerness</h5>
+<p>Using centerness <u>improves mAP for the ScanNet and SUN RGB-D datasets</u>.</p>
+<p>使用中心度对于ScanNet和SUN RGB-D数据集有提升.</p>
+<p>For S3DIS, the results are controversial: the better <span class="math inline">\(mAP@0.5\)</span> is balanced with a minor decrease of <span class="math inline">\(mAP@0.25\)</span>.</p>
+<p>对于S3DIS数据集, 使用中心度在<span class="math inline">\(mAP@0.5\)</span>上有提升, 在<span class="math inline">\(mAP@0.25\)</span>上有略微下降.</p>
+<p>Nevertheless, we analyze the results altogether, so we can <u>consider centerness a helpful feature with a small positive effect on the mAP</u>, almost reaching 1% of <span class="math inline">\(mAP@0.5\)</span> on ScanNet.</p>
+<p>整体来说, 中心度是一个有用的特征能够对于提升mAP有较小的积极作用.</p>
+<h5 id="center-sampling">Center sampling</h5>
+<p>We select <span class="math inline">\(9\)</span> locations, as proposed in FCOS, the entire set of <span class="math inline">\(27\)</span> locations, as in ImVoxelNet, and <span class="math inline">\(18\)</span> being an average of these options.</p>
+<p>作者尝试了9, 27和18这三种不同的选项.</p>
+<p><u>The latter appeared to be the best choice that allows achieving higher mAP</u> on all the benchmarks.</p>
+<p>将中心采样的位置数量设置为18时, 在mAP上的表现最好.</p>
+<h4 id="inference-speed部分">Inference Speed部分</h4>
+<p>Compared to standard convolutions, <u>sparse convolutions are time- and memory-efﬁcient</u>.</p>
+<p>稀疏卷积在时间上和空间上更加高效.</p>
+<p>FCAF3D uses the <u>same sparse convolutions and the same backbone</u> as GSDN.</p>
+<p>FCAF3D使用与GSDN相同的卷积和backbone.</p>
+<p>However, <u>the default FCAF3D is slower than GSDN</u>.</p>
+<p>但是默认设置的FCAF3D比GSDN慢.</p>
+<p>This is due to the smaller voxel size: we use 0.01m for a proper multi-level assignment while GSDN uses 0.05m.</p>
+<p>这是因为FCAF3D的体素比GSDN的小.</p>
+<p>To build the fastest method, we conduct experiments with HDResNet34:3 and HDResNet34:2 with only three and two feature levels, respectively.</p>
+<p>为了加快FCAF3D的运行速度, 作者设计了使用两层或三层特征层级的版本.</p>
+<p>With these modiﬁcations, FCAF3D is faster on inference than GSDN.</p>
+<p>修改后的版本运行速度比GSDN快.</p>
+<p>The comparison is shown graphically in follow figure (<span class="math inline">\(mAP@0.5\)</span> scores on ScanNet against scenes per second).</p>
+<p>速度对比结果如下(横轴是每秒预测的场景数量, 纵轴是对应的<span class="math inline">\(mAP@0.5\)</span>分数):</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201021429824.png" srcset="/img/loading.gif" lazyload /></p>
+<p>In performance tests, we opt for implementations <u>based on the MMdetection3D framework</u> to mitigate codebase differences.</p>
+<p>为消除代码实现的不同带来的影响, 所有的速度对比都是基于MMdetection3D框架实现的.</p>
+<p>The reported inference speed for all methods is measured on the same single GPU so they can be directly compared.</p>
+<p>所有的预测都是在同一张单GPU上进行的.</p>
+<h3 id="supplement部分">Supplement部分</h3>
+<h4 id="additional-comments-on-mobius-parametrization部分">Additional Comments on Mobius Parametrization部分</h4>
+<p>The OBB heading angle <span class="math inline">\(\theta\)</span> is typically deﬁned as <u>an angle between x-axis and a vector towards a center of one of OBB faces</u>.</p>
+<p>有向边界框的朝向角一般是<span class="math inline">\(x\)</span>轴和一个面中心点对应的向量的夹角.</p>
+<p><u>If a frontal face exists, then <span class="math inline">\(\theta\)</span> is deﬁned unambiguously</u>; however, this is not the case for some indoor objects.</p>
+<p>如果正面是确定的, 那么<span class="math inline">\(\theta\)</span>不会产生歧义, 但是对大多数室内物体来说, 正面不是确定的.</p>
+<p>If a frontal face cannot be chosen unequivocally, there are <u>four possible representations</u> for a single OBB.</p>
+<p>如果正面无法被确定, 那么对于一个有向边界框将会有四种不同的表达方式.</p>
+<p>The <u>heading angle describes a rotation</u> within the <span class="math inline">\(xy\)</span> plane around <span class="math inline">\(z\)</span>-axis w.r.t. the OBB center.</p>
+<p>朝向角只描述了边界框绕<span class="math inline">\(z\)</span>轴旋转的角度.</p>
+<p>Therefore, the <u>OBB center <span class="math inline">\((x, y, z)\)</span>, height <span class="math inline">\(h\)</span>, and the OBB size <span class="math inline">\(s=w+l\)</span> are the same</u> for all representations.</p>
+<p>因此, 边界框中心<span class="math inline">\((x, y, z)\)</span>, 高<span class="math inline">\(h\)</span>和大小<span class="math inline">\(s=w+l\)</span>对于这四种表达来说是相同的.</p>
+<p>Meanwhile, <u>the ratio <span class="math inline">\(q = \frac{w}{l}\)</span> of the frontal and lateral OBB faces and the heading angle <span class="math inline">\(\theta\)</span> do vary</u>.</p>
+<p>但是比例<span class="math inline">\(q = \frac{w}{l}\)</span>和角度<span class="math inline">\(\theta\)</span>对这四种表达来说是不同的.</p>
+<p>Speciﬁcally, there are <u>four options for the heading angle</u>: <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\theta+\frac{\pi}{2}\)</span>, <span class="math inline">\(\theta+\pi\)</span>, <span class="math inline">\(\theta+\frac{3\pi}{2}\)</span>.</p>
+<p>有四种不同的角度: <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\theta+\frac{\pi}{2}\)</span>, <span class="math inline">\(\theta+\pi\)</span>, <span class="math inline">\(\theta+\frac{3\pi}{2}\)</span>.</p>
+<p>Swapping frontal and lateral faces gives <u>two ratio options</u>: <span class="math inline">\(q\)</span> and <span class="math inline">\(\frac{1}{q}\)</span>.</p>
+<p>有两种不同的比例: <span class="math inline">\(q\)</span> and <span class="math inline">\(\frac{1}{q}\)</span>.</p>
+<p>Overall, there are <u>four different tuples <span class="math inline">\((q, \theta)\)</span> for the same OBB</u>: <span class="math inline">\((q, \theta)\)</span>, <span class="math inline">\(\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right)\)</span>, <span class="math inline">\((q, \theta+\pi)\)</span>, <span class="math inline">\(\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span>.</p>
+<p>于是这四种表示分别是: <span class="math inline">\((q, \theta)\)</span>, <span class="math inline">\(\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right)\)</span>, <span class="math inline">\((q, \theta+\pi)\)</span>, <span class="math inline">\(\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right)\)</span>.</p>
+<p>Here, we prove that <u>four different representations of the same OBB map to the same point on a Mobius strip</u>.</p>
+<p>可以证明这四种表示在莫比乌斯环上对应同一个点. <span class="math display">\[
+\begin{aligned}
+(q, \theta) \mapsto &amp; (\ln (q) \sin (2 \theta), \ln (q) \cos (2 \theta), \sin (4 \theta), \cos (4 \theta)) \\
+\left(\frac{1}{q}, \theta+\frac{\pi}{2}\right) \mapsto &amp; \left(\ln \left(\frac{1}{q}\right) \sin (2 \theta+\pi), \ln \left(\frac{1}{q}\right) \cos (2 \theta+\pi), \sin (4 \theta+2 \pi), \cos (4 \theta+2 \pi)\right) \\
+&amp;=(\ln (q) \sin (2 \theta), \ln (q) \cos (2 \theta), \sin (4 \theta), \cos (4 \theta)) \\
+(q, \theta+\pi) \mapsto &amp; (\ln (q) \sin (2 \theta+2 \pi)), \ln (q) \cos (2 \theta+2 \pi), \sin (4 \theta+4 \pi), \cos (4 \theta+4 \pi)) \\
+&amp;=(\ln (q) \sin (2 \theta), \ln (q) \cos (2 \theta), \sin (4 \theta), \cos (4 \theta)) \\
+\left(\frac{1}{q}, \theta+\frac{3 \pi}{2}\right) \mapsto &amp; \left(\ln \left(\frac{1}{q}\right) \sin (2 \theta+3 \pi)\right), \ln \left(\frac{1}{q}\right) \cos (2 \theta+3 \pi), \sin (4 \theta+6 \pi), \cos (4 \theta+6 \pi) \\
+&amp;=(\ln (q) \sin (2 \theta), \ln (q) \cos (2 \theta), \sin (4 \theta), \cos (4 \theta))
+\end{aligned}
+\]</span></p>
+<h4 id="per-category-results部分">Per-category results部分</h4>
+<h4 id="visualization部分">Visualization部分</h4>
+<h3 id="精读总结">精读总结</h3>
+<blockquote>
+<p>精读目标及效果自测：所读段落是否详细掌握，回答三个的终极问题(你是谁 - 论文提出/采用什么方法、细节是什么；从哪里来 - 论文要解决什么问题/任务、其启发点或借鉴之处在哪；到哪里去 - 论文方法达到什么效果)。</p>
+</blockquote>
+<p>论文采用稀疏卷积结合类似FCOS的设计, 构建了一个多特征层级的三维室内物体检测器.</p>
+<p>论文使用旋转IoU损失函数实现anchor-free并提升模型的生成能力.</p>
+<p>论文还提出了基于莫比乌斯表达的新型三维边界框参数化模型以解决三维框朝向角歧义的问题.</p>
+<p>论文指出这种新型参数化方法应用到任何一种现有的三维物体检测方法上都有助于提升检测精度.</p>
+<p>论文设计的方案在现有的室内检测数据集上达到了SOTA并且保持较快的预测速度.</p>
+<h2 id="总结">总结</h2>
+<blockquote>
+<p>总结：总览全文，归纳总结，总结文中创新点，关键点，启发点（论文idea的来源或者说是论文的motivation）等重要信息。</p>
+</blockquote>
+<p>论文的创新点、关键点:</p>
+<ul>
+<li>使用多特征层级的方案进行三维目标检测;</li>
+<li>设计新的边界框参数化方法优化预测效果;</li>
+<li>使用旋转IoU损失函数实现anchor-free;</li>
+<li>使用稀疏卷积和剪枝控制模型参数加快预测速度;</li>
+<li>在目前主要的室内三维检测数据集上达到了SOTA.</li>
+</ul>
+<p>论文的启发点:</p>
+<ul>
+<li>FCOS的网络架构;</li>
+<li>GSDN的稀疏卷积;</li>
+<li>ImVoxelNet的旋转IoU损失函数.</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
