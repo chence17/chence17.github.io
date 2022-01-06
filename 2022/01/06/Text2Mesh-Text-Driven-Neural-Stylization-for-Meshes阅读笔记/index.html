@@ -1,0 +1,1120 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记  读论文三步曲：泛读，精读，总结。  泛读  泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。  Title部分 Text2Mesh: Text-Driven Neural Stylization for Meshes  任务: Stylization for Meshe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记">
+<meta property="og:url" content="http://example.com/2022/01/06/Text2Mesh-Text-Driven-Neural-Stylization-for-Meshes%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记  读论文三步曲：泛读，精读，总结。  泛读  泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。  Title部分 Text2Mesh: Text-Driven Neural Stylization for Meshes  任务: Stylization for Meshe">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201051717992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061101377.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061103977.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061105095.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061421943.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062111336.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062113223.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062115512.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062118366.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062043618.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062050060.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062019507.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062012132.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201062013015.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061951971.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061907420.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061747482.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061750755.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061739346.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201061653413.png">
+<meta property="article:published_time" content="2022-01-06T15:48:59.000Z">
+<meta property="article:modified_time" content="2022-01-06T15:53:27.516Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chence17/picgo/master/202201051717992.png">
+  
+  
+  <title>Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-06 23:48" pubdate>
+        January 6, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      38k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      318 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="text2mesh-text-driven-neural-stylization-for-meshes阅读笔记">Text2Mesh: Text-Driven Neural Stylization for Meshes阅读笔记</h1>
+<blockquote>
+<p>读论文三步曲：泛读，精读，总结。</p>
+</blockquote>
+<h2 id="泛读">泛读</h2>
+<blockquote>
+<p>泛读：快速浏览，把握概要。重点读标题、摘要、结论、所有小标题。</p>
+</blockquote>
+<h3 id="title部分">Title部分</h3>
+<p>Text2Mesh: <u>Text-Driven</u> Neural <em>Stylization for Meshes</em></p>
+<ul>
+<li>任务: Stylization for Meshes [三维Mesh的风格变换]</li>
+<li>特点: Text-Driven [文本驱动的]</li>
+</ul>
+<h3 id="abstract部分">Abstract部分</h3>
+<p>Our framework, <u>Text2Mesh</u>, <u>stylizes a 3D mesh</u> by <u>predicting color and local geometric details</u> which <u>conform to a target text prompt</u>.</p>
+<p>作者提出的架构Text2Mesh可以通过预测符合目标文本描述的颜色和局部几何细节来变换一个三维mesh的风格.</p>
+<p>We consider <u>a disentangled representation of a 3D object</u> using <u>a ﬁxed mesh input (content)</u> coupled with <u>a learned neural network</u>, which we term <u>neural style field network</u>.</p>
+<p>作者将三维物体的表示方法进行了解耦, 一个三维物体由固定的点云输入(内容)和一个与之相关联的神经网络, 作者称这个神经网络为NSF(Neural Style Field)网络.</p>
+<p>In order to modify style, we obtain <u>a similarity score between a text prompt (describing style) and a stylized mesh</u> by harnessing the representational power of <a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a>.</p>
+<p>作者利用<a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a>来获取文本描述和mesh风格之间的相似度分数.</p>
+<p>Text2Mesh requires <u>neither a pre-trained generative model nor a specialized 3D mesh dataset</u>.</p>
+<p>Text2Mesh既不需要一个预先训练好的生成模型, 也不需要一个特殊的三维mesh数据集.</p>
+<p>It can handle <u>low-quality meshes</u> (non-manifold, boundaries, etc.) with arbitrary genus, and <u><em>does not require UV parameterization</em></u>.</p>
+<p>Text2Mesh可以处理低质量的任意类型的mesh并且不需要任何UV参数.</p>
+<p>Our code and results are available in our <u>project webpage</u>: <a target="_blank" rel="noopener" href="https://threedle.github.io/text2mesh/">https://threedle.github.io/text2mesh/</a>.</p>
+<p>Text2Mesh的项目主页是<a target="_blank" rel="noopener" href="https://threedle.github.io/text2mesh/">https://threedle.github.io/text2mesh/</a>.</p>
+<h4 id="clip"><a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a></h4>
+<blockquote>
+<p>参考资料: <a target="_blank" rel="noopener" href="https://mileistone.github.io/work/2021/01/14/thought-on-connecting-text-and-images/">对Connecting Text and Images的理解</a>、<a target="_blank" rel="noopener" href="https://blog.csdn.net/Only_Wolfy/article/details/112675777">CLIP: Connecting Text and Images 介绍</a>、<a target="_blank" rel="noopener" href="https://github.com/exacity/deeplearningbook-chinese">Deep Learning 中文翻译</a></p>
+</blockquote>
+<p>动机:</p>
+<ul>
+<li>CV领域数据集标注成本高昂;</li>
+<li>CV模型一般只能胜任一个任务, 迁移到新任务上非常困难;</li>
+<li>CV模型泛化能力较差.</li>
+</ul>
+<p>解决方案:</p>
+<ul>
+<li>互联网上较容易搜集到大量成对的文本和图像, 对于任何一个图像文本对而言, 文本可以认为是图像的标签, 从而解决数据集的问题.</li>
+<li>互联网上存在的这些成对的文本和图像, 数量大且差异大, 当我们在这样的数据集上训练一个表达能力足够强的模型时, 这个模型就能具备较强的泛化能力, 可以较容易迁移到其他新任务上.</li>
+</ul>
+<p>特点:</p>
+<ul>
+<li>zero-shot做得好, 在不同的数据集上表现还可以, 可以自定义任务, 而且效率很高.</li>
+<li>高效, 虽然GPT3做zero-shot也很好, 但是CLIP吃的资源少, 计算量少, 训练效率高.</li>
+<li>灵活和通用, 直接从自然语言中学习广泛的视觉概念, CLIP明显比现有的ImageNet模型更灵活和通用.</li>
+</ul>
+<p>CLIP的zero-shot:</p>
+<ul>
+<li>通过CLIP训练出来一个模型之后，满足以下条件的新任务都可以直接zero-shot进行识别.
+<ul>
+<li>能够用文字描述清楚这个新分类任务中每个类别;</li>
+<li>这个描述对应的概念在CLIP的训练集中出现过.</li>
+</ul></li>
+<li>CLIP把分类转换为了跨模态检索, 模型足够强的情况下, 检索会比分类扩展性强. CLIP的zero-shot其实就是把分类问题转化为了检索问题.</li>
+<li>CLIP能够zero-shot, 而且效果不错的原因如下.
+<ul>
+<li>训练集够大, zero-shot任务的图像分布在训练集中有类似的, zero-shot任务的concept在训练集中有相近的;</li>
+<li>将分类问题转换为检索问题.</li>
+</ul></li>
+</ul>
+<p>zero-shot和one-shot:</p>
+<ul>
+<li>只有一个标注样本的迁移任务被称为one-shot学习;</li>
+<li>没有标注样本的迁移任务被称为zero-shot学习.</li>
+</ul>
+<h4 id="uv-parameterization">UV parameterization</h4>
+<blockquote>
+<p>参考资料: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/UV_mapping">UV mapping</a></p>
+</blockquote>
+<p>UV参数是指在进行三维纹理贴图的时候使用UV贴图的时候需要用到的参数.</p>
+<p>UV贴图的过程是将二维的纹理特征转化为UV图, 之后将UV图转换到三维空间上.</p>
+<p>常见的UV贴图是将二维纹理特征转换到三维球的空间上, 之后使用三维纹理球将纹理添加到三维物体上.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201051717992.png" srcset="/img/loading.gif" lazyload /></p>
+<p>对于三维纹理球上的任何一点<span class="math inline">\(P\)</span>, 假设向量<span class="math inline">\(\vec{d}\)</span>是球心到点<span class="math inline">\(P\)</span>对应的向量, 假设球的两极与<span class="math inline">\(y\)</span>轴对齐, UV图坐标范围为<span class="math inline">\([0, 1]\)</span>, 那么换算关系如下: <span class="math display">\[
+\begin{aligned}
+&amp;u=0.5+\frac{\arctan 2\left(d_{x}, d_{z}\right)}{2 \pi} \\
+&amp;v=0.5-\frac{\arcsin \left(d_{y}\right)}{\pi}
+\end{aligned}
+\]</span></p>
+<h3 id="conclusion部分">Conclusion部分</h3>
+<p>It can <u>predict structured textures</u> (e.g. bricks), <u>without a directional field or mesh parameterization</u>.</p>
+<p>Text2Mesh在不需要方向域或mesh参数的情况下可以预测结构化的纹理特征(例如砖块).</p>
+<p>Traditionally, the direction of texture patterns over 3D surfaces has been <u>guided by 3D shape analysis techniques</u>.</p>
+<p>传统上三维物体表面的纹理形式的方向需要使用三维形状分析技术.</p>
+<p>In this work, the texture direction is <u>driven by 2D rendered images</u>, which <u>capture the semantics of how textures appear in the real world</u>.</p>
+<p>Text2Mesh中纹理的方向则是由二维渲染图片决定的, 二维渲染图片可以捕捉到纹理如何出现在真实世界中的这一语义信息.</p>
+<p>Our system is capable of <u>generating out-of-domain stylized outputs</u>.</p>
+<p>Text2Mesh能够生成out-of-domain的不同风格的输出.</p>
+<p>Our framework uses a pre-trained CLIP model, which <u>has been shown to contain bias</u>.</p>
+<p>Text2Mesh使用了一个预先训练的CLIP模型, 这个模型包含了一定的偏置.</p>
+<p>We postulate that our proposed method can be used to <u>visualize, understand, and interpret such model biases in a more direct and transparent way</u>.</p>
+<p>Text2Mesh可以以一种直接而透明的方式可视化和理解这一偏差并与之交互.</p>
+<p>As future work, our framework could be used to <u>manipulate 3D content</u> as well.</p>
+<p>未来, 作者希望Text2Mesh可以利用三维信息.</p>
+<p>Instead of modifying a given input mesh, one could learn to <u>generate meshes from scratch</u> driven by a text prompt.</p>
+<p>作者希望能够直接从零开始生成符合文本描述的mesh, 而不是修改输入的mesh.</p>
+<p>Moreover, our NSF (Neural Style Field) is <u>tailored to a single 3D mesh</u>.</p>
+<p>Text2Mesh是为生成单个mesh量身定制的.</p>
+<p>It may be possible to <u>train a network to stylize a collection of meshes towards a target style</u> in a feed-forward manner.</p>
+<p>未来可以尝试训练一个能够更改一系列mesh到指定风格的前馈神经网络.</p>
+<h3 id="小标题分析">小标题分析</h3>
+<ul>
+<li>Introduction <em>[简介]</em></li>
+<li>Related Work <em>[相关工作]</em></li>
+<li>Method <em>[方法]</em>
+<ul>
+<li>Neural Style Field Network <em><u>[NSF网络]</u></em></li>
+<li>Text-based correspondence <em><u>[基于文本的相关性]</u></em></li>
+<li>Viewpoints and Augmentations <em><u>[视角和增强]</u></em></li>
+</ul></li>
+<li>Experiments <em>[实验]</em>
+<ul>
+<li>Neural Stylization and Controls <em>[风格转换与控制]</em></li>
+<li>Text2Mesh Priors <em><u>[Text2Mesh先验]</u></em></li>
+<li>Stylization Fidelity <em><u>[风格准确性]</u></em></li>
+<li>Beyond Textual Stylization <em>[文本指定的风格之外]</em></li>
+<li>Incorporating Symmetries <em><u>[吸收对称性]</u></em></li>
+<li>Limitations <em><u>[局限性]</u></em></li>
+</ul></li>
+<li>Conclusion <em>[结论]</em></li>
+<li>Supplement <em>[附加材料]</em>
+<ul>
+<li>Additional Results <em>[更多的结果]</em></li>
+<li>High Resolution Stylization <em>[高分辨率的风格转换]</em></li>
+<li>Choice of anchor view <em><u>[锚点视角的选择]</u></em></li>
+<li>Training and Implementation Details <em>[训练和实现细节]</em>
+<ul>
+<li>Network Architecture <em><u>[网络架构]</u></em></li>
+<li>Training <em>[训练]</em></li>
+</ul></li>
+<li>Baseline Comparison and User Study <em>[基线比较和用户调研]</em></li>
+<li>Societal Impact <em>[对社会的冲击]</em></li>
+</ul></li>
+</ul>
+<h3 id="泛读总结">泛读总结</h3>
+<blockquote>
+<p>泛读目标及效果自测：1.论文要解决什么问题? 2.论文采用了什么方法? 3.论文达到什么效果?</p>
+</blockquote>
+<p>论文要解决什么问题? - 基于文本的三维Mesh的风格变换</p>
+<p>论文采用了什么方法? - 将三维物体解耦成固定的mesh和NSF(Neural Style Field)网络, 通过NSF网络来控制和修改mesh的风格. 利用<a target="_blank" rel="noopener" href="https://openai.com/blog/clip/">CLIP</a>来获取文本描述和mesh风格之间的相似度分数, 用以监督网络的训练.</p>
+<p>论文达到什么效果? - Text2Mesh可以较为准确的将文本指定的风格应用到输入的mesh上.</p>
+<h2 id="精读">精读</h2>
+<blockquote>
+<p>精读：通过泛读找到需要精读重点部分和快速略过的部分，选出精华，仔细阅读。</p>
+</blockquote>
+<h3 id="introduction部分">Introduction部分</h3>
+<p>We consider <u><em>content</em> as the global structure prescribed by a 3D mesh</u>, which <u>defines the overall shape surface and topology</u>.</p>
+<p>作者考虑选择三维mesh作为全局结构的content, 三维mesh定义了全局的形状表面和拓扑结构.</p>
+<p>We consider <u><em>style</em> as the object’s particular appearance or affect</u>, as <u>determined by its color and ﬁne-grained (local) geometric details</u>.</p>
+<p>作者认为风格是物体特殊的外在形式和效果, 风格由颜色和好的局部细节决定.</p>
+<p>We propose <u>expressing the desired style through natural language (a text prompt)</u>, similar to how a commissioned artist is provided a verbal or textual description of the desired work.</p>
+<p>作者使用自然语言作为选择风格的方式.</p>
+<p><u>A natural cue for modifying the appearance of 3D shapes is through 2D projections</u>, as they correspond with how humans and machines perceive 3D geometry.</p>
+<p>修改三维物体外表的一个自然的想法是通过其二维投影, 因为这和人类和机器观测三维几何结构的方式相关.</p>
+<p>We use a neural network to <u>synthesize color and local geometric details over the 3D input shape</u>, which we refer to as a <em>neural style field</em> (NSF).</p>
+<p>作者使用神经网络来在全局三维物体上合成颜色和局部几何细节, 这些颜色和局部几何细节被称之为神经元风格域(NSF).</p>
+<p>The weights the NSF network are optimized such that <u>the resulting 3D stylized mesh adheres to the style described by text</u>.</p>
+<p>NSF网络的优化目标是让输出的三维mesh的风格与输入的文本相匹配.</p>
+<p>In particular, our neural optimization is guided by <u>multiple 2D (CLIP-embedded) views of the stylized mesh matching our target text</u>.</p>
+<p>NSF网络的优化方式是借助CLIP网络让输出三维mesh的多视角的二维图片的风格与输入文本相匹配.</p>
+<p>Text2Mesh produces <u>color and geometric details</u> over a variety of source meshes, driven by a target text prompt.</p>
+<p>Text2Mesh可以在输入的三维mesh基础上合成符合输入文本描述的颜色和几何细节.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061101377.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Our method produces <u>different colors and local deformations for the same 3D mesh</u> content to match the speciﬁed text.</p>
+<p>作者提出的方法能够对相同的三维mesh合成不同的颜色和局部变形来满足不同的文本描述.</p>
+<p>Moreover, Text2Mesh produces structured textures that are aligned with salient features, <u>without needing to estimate sharp 3D curves or a mesh parameterization</u>.</p>
+<p>Text2Mesh可以合成与突出特征对齐的结构化的纹理且不需要估计尖锐的三维曲线或mesh参数.</p>
+<p>Given a source mesh (gray), our method produces stylized meshes (<u>containing color and local geometric displacements</u>) which conform to various target texts.</p>
+<p>输入一个mesh, Text2Mesh可以合成颜色和局部的几何变换来满足不同的文本描述.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061103977.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Our method also demonstrates global understanding; e.g. in following figure human body parts are stylized in accordance with their semantic role.</p>
+<p>Text2Mesh具有全局性的理解能力, 例如在下图中, 人体的各个部位分别与语义描述的对象的各个部位相对应.</p>
+<p>Given the same input bare mesh, our neural style ﬁeld network produces <u>deformations for outerwear of various types</u> (capturing ﬁne details such as creases in clothing and complementary accessories), and <u>distinct features such as muscle and hair</u>.</p>
+<p>输入相同的mesh, Text2Mesh可以为不同的类型的衣物(捕捉到好的细节, 例如衣服的褶皱和装饰物)和显著的特征(例如毛发和肌肉)生成相对应的形变.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061105095.png" srcset="/img/loading.gif" lazyload /></p>
+<p>We use the weights of the NSF network to encode a stylization (e.g. color and displacements) over the <em>explicit</em> mesh surface.</p>
+<p>作者使用NSF网络来编码在显示的mesh表面的风格样式.</p>
+<p>Meshes faithfully portray 3D shapes and can accurately represent sharp, extrinsic features using a high level of detail.</p>
+<p>三维mesh可以很好的描绘三维形状并且可以利用高层级的细节准确的再现形状和外在特征.</p>
+<p>Our neural style ﬁeld is <u><em>complementary</em> to the mesh content</u>, and appends colors and small displacements to the input mesh.</p>
+<p>NSF是对mesh的一种补充, NSF包含有为mesh加入颜色和微小形变的信息.</p>
+<p>Speciﬁcally, our neural style ﬁeld network <u>maps points on the mesh surface to style attributes</u> (i.e., RGB colors and displacements).</p>
+<p>NSF可以将mesh表面的点与其风格属性进行匹配(例如颜色和偏移).</p>
+<p>We guide the NSF network by <u>rendering the stylized 3D mesh from multiple 2D views and measuring the similarity of those views against the target text</u>, using CLIP’s embedding space.</p>
+<p>作者使用风格化后的三维mesh的多视角图片在CLIP上计算的与目标文本的相似度分数来监督NSF网络的训练.</p>
+<p>However, a straightforward optimization of the 3D stylized mesh which maximizes the CLIP similarity score <u>converges to a degenerate (i.e. noisy) solution</u>.</p>
+<p>直接优化使得基于CLIP的相似度分数最大会让模型收敛到一个退化的结果.</p>
+<p>Speciﬁcally, we observe that the joint text-image embedding space <u>contains an abundance of <em>false positives</em></u>, where a valid target text and a degenerate image (i.e. noise, artifacts) result in a high similarity score.</p>
+<p>作者观察到文本-图像空间包含很多假阳性案例, 意思是一个有效的文本与一张退化的图片(例如有噪音和瑕疵)可以得到一个高的相似度分数.</p>
+<p>Therefore, <u>employing CLIP for stylization requires careful regularization</u>.</p>
+<p>使用CLIP来做风格转换需要很小心的正则化.</p>
+<p>We <u>leverage multiple <em>priors</em> to effectively guide our NSF network</u>.</p>
+<p>作者使用多重先验信息来指导NSF网络的训练.</p>
+<p>The <u>3D mesh input acts as a <em>geometric prior</em></u> that imposes global shape structure, as well as local details that indicate the appropriate position for stylization.</p>
+<p>输入的三维mesh作为包含全局形状结构信息和局部细节的几何先验.</p>
+<p>The <u>weights of the NSF network act as a <em>neural prior</em></u> (i.e. regularization technique), which tends to favor smooth solutions.</p>
+<p>NSF网络的权重作为神经元先验(例如正则化技术)来获取光滑的结果.</p>
+<p>In order to produce accurate styles which contain high-frequency content with high ﬁdelity, we <u>use a frequency-based positional encoding</u>.</p>
+<p>作者使用基于频率的位置编码来产生正确的包含高可信度的高频内容的风格.</p>
+<p>We garner a strong signal about the quality of the neural style ﬁeld by <u>rendering the stylized mesh from multiple 2D views and then applying 2D augmentations</u>.</p>
+<p>作者通过获取三维风格化mesh的多视角图片并将其进行图像增强来获取一个评估NSF生成质量的信号.</p>
+<p>This results in a system which can <u>effectively avoid degenerate solutions</u>, while still <u>maintaining high-ﬁdelity results</u>.</p>
+<p>这能够让系统避免陷入退化的结果同时能够保证高可信度的结果.</p>
+<p>The focus of our work is <u>text-driven stylization</u>, since text is easily modiﬁable and can effectively express complex concepts related to style.</p>
+<p>作者的目标是设计一个文本驱动的风格化网络, 因为文本可以被容易地编辑并且可以表达复杂风格概念.</p>
+<p>Beyond text, our framework extends to <u>additional target modalities, such as images, 3D meshes, or even cross-modal combinations</u>.</p>
+<p>除了文本, 作者提出的架构可以拓展到其他模态, 比如图片、三维mesh甚至跨模态的结合体.</p>
+<p>In summary, we present <u>a technique for the semantic manipulation of style for 3D meshes</u>, harnessing the representational power of CLIP.</p>
+<p>作者提出了一个基于CLIP使用语义信息修改三维mesh风格的技术.</p>
+<p>Our system <u>combines the advantages of <em>explicit</em> mesh surfaces and the generality of neural ﬁelds to facilitate intuitive control for stylizing 3D shapes</u>.</p>
+<p>作者提出的系统融合了显式表达的mesh表面和NSF对于三维形状风格的生成能力的优势.</p>
+<p>A notable advantage of our framework is <u>its ability to handle low-quality meshes (e.g., non-manifold) with arbitrary genus</u>.</p>
+<p>作者提出的系统的另一大优点是能够处理任意类别的低质量的mesh.</p>
+<p>We show that <u>Text2Mesh can stylize a variety of 3D shapes with many different target styles</u>.</p>
+<p>作者展示了Text2Mesh可以将大量不同的三维mesh进行不同的风格化.</p>
+<h3 id="related-work部分">Related Work部分</h3>
+<h4 id="text-driven-manipulation">Text-Driven Manipulation</h4>
+<p>The above techniques (StyleCLIP, StyleGAN, VQGAN-CLIP, etc.) leverage <u>a pre-trained generative network or a dataset</u> to avoid the degenerate solutions common when using CLIP for synthesis.</p>
+<p>这些技术(StyleCLIP、StyleGAN、VQGAN-CLIP等等)都利用预训练模型或者数据集来避免CLIP在合成上带来的退化结果.</p>
+<p>The ﬁrst to leverage CLIP for synthesis <u>without the need for a pre-trained network or dataset</u> is CLIPDraw.</p>
+<p>CLIPDraw是第一个没有使用预训练模型或数据集来避免这一问题的算法.</p>
+<p>Concurrent work uses CLIP to <u>optimize over parameters of the SMPL human body model to create digital creatures</u>.</p>
+<p>最近的一些工作使用CLIP来优化SMPL人体参数来创建数字生物.</p>
+<p>Prior to CLIP, <u>text-driven control for deforming 3D shapes was explored using specialized 3D datasets</u>.</p>
+<p>在CLIP之前, 文本驱动的三维形状控制一般是建立在特殊化的数据集上.</p>
+<h4 id="geometric-style-transfer-in-3d">Geometric Style Transfer in 3D</h4>
+<p>Some approaches <u>analyze 3D shapes and identify similarly shaped geometric elements and parts which differ in style</u>.</p>
+<p>一些方法通过分析三维物体的一致性和差异性来进行几何风格迁移.</p>
+<p>Others transfer geometric style based on <u>content/style separation</u>.</p>
+<p>另一些方法则是基于内容/风格分离的思路.</p>
+<p>Other approaches are <u>speciﬁc to categories</u> of furniture, 3D collages, LEGO, and portraits.</p>
+<p>另一些方法则是基于特定的类别.</p>
+<p>The above methods <u>rely on 3D datasets</u>, while other techniques <u>use a single mesh exemplar for synthesizing geometric textures or producing mesh reﬁnements</u>.</p>
+<p>上述的方法都需要三维数据集, 其他的技术也需要使用一个mesh样例来合成几何纹理和mesh修复.</p>
+<p>Shapes can be edited to contain <u>cubic stylization</u>, or <u>stripe patterns</u>.</p>
+<p>形状可以被修改来包含立方体风格形式或者条纹样式.</p>
+<p>Unlike these methods, we consider <u>a wide range of styles</u>, guided by an intuitive and compact (text) speciﬁcation.</p>
+<p>与这些方法不同, 作者提出的方法能够使用符合直觉的精炼的文字描述来指定生成大范围的不同的风格.</p>
+<h4 id="texture-transfer-in-3d">Texture Transfer in 3D</h4>
+<p>Aspects of a 3D mesh style can be controlled by <u>texturing a surface through mesh parameterization</u>.</p>
+<p>三维mesh的风格可以被mesh参数定义的表面纹理所控制.</p>
+<p>However, most parameterization approaches <u>place strict requirements on the quality of the input mesh</u> (e.g., a manifold, non-intersecting, and low/zero genus), which do not hold for most meshes in the wild.</p>
+<p>但是这种方式对mesh的质量要求很高, 大多数mesh达不到这种要求.</p>
+<p>We avoid parameterization altogether and opt to modify appearance using a neural ﬁeld which <u>provides a style value (i.e., an RGB value and a displacement) for every vertex on the mesh</u>.</p>
+<p>作者提出的方法避免了这一问题, 作者提出的方法直接使用NFS为每个mesh顶点生成对应的风格数值(颜色和偏移)从而达到修改mesh外表的目的.</p>
+<p>Recent work explored a neural representation of texture, here we consider <u>both color and local geometry changes</u> for the manipulation of style.</p>
+<p>近期的一些工作探索了纹理的神经元表示, 作者同时考虑与风格对应的颜色和几何变化.</p>
+<h4 id="neural-priors-and-neural-fields">Neural Priors and Neural Fields</h4>
+<p>Our framework <u>leverages the inductive bias of neural networks to act as a prior which guides Text2Mesh away from degenerate solutions present in the CLIP embedding space</u>.</p>
+<p>作者提出的架构利用神经网络的偏置作为先验信息来防止Text2Mesh收敛到一个退化的结果.</p>
+<p>Speciﬁcally, our stylization network acts as a neural prior, which <u>leverages positional encoding to synthesize ﬁne-grained stylization details</u>.</p>
+<p>作者提出的网络可以利用位置编码来合成好的风格化的细节.</p>
+<p>NeRF and follow ups have demonstrated success on 3D scene modeling.</p>
+<p>NeRF及其后继者在三维场景建模领域获得了巨大的成功.</p>
+<p>They leverage a neural ﬁeld to represent 3D objects using network weights.</p>
+<p>他们利用神经元域使用网络权重来表示三维物体.</p>
+<p>However, <u>neural ﬁelds commonly entangle geometry and appearance, which limits separable control of content and style</u>.</p>
+<p>神经元域通常会融合几何和外表特征, 这限制了分别控制这两种特征的内容和风格的能力.</p>
+<p>Moreover, <u>they struggle to accurately portray sharp features, are slow to render, and are difﬁcult to edit</u>.</p>
+<p>神经元域还会生成很锐利的特征, 这些特征渲染速度很慢并且很难编辑.</p>
+<p>Instead, our method <u>uses a disentangled representation of a 3D object using an explicit mesh representation of shape and a neural style ﬁeld which controls appearance</u>.</p>
+<p>作者提出的方法使用解耦的表达, 将物体分为显式的mesh形状和基于NSF的外表.</p>
+<p>This formulation <u>avoids parametrization</u>, and can be used to <u>easily manipulate appearance and generate high resolution outputs</u>.</p>
+<p>这种方式避免了参数化并且可以轻松的控制外表和生成高分辨率的结果.</p>
+<h3 id="method部分">Method部分</h3>
+<p>Text2Mesh <u>modiﬁes an input mesh to conform to the target text</u> by predicting color and geometric details.</p>
+<p>Text2Mesh通过修改输入mesh的几何特征和颜色来使之满足目标文本的需求.</p>
+<p><u>The weights of the neural style network are optimized by rendering multiple 2D images and applying 2D augmentations</u>, which are given a similarity score to the target from the CLIP-based semantic loss.</p>
+<p>通过渲染多幅二维图像并使用图像增强技术来优化NSF网络的权重, 这是通过基于CLIP的语义损失函数实现的.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061421943.png" srcset="/img/loading.gif" lazyload /></p>
+<p>As an overview, <u>the 3D object <em>content</em> is deﬁned by an input mesh <span class="math inline">\(M\)</span> with vertices <span class="math inline">\(V \in \mathbb{R}^{n \times 3}\)</span> and faces <span class="math inline">\(F \in\{1, \ldots, n\}^{m \times 3}\)</span>, and is ﬁxed throughout training</u>.</p>
+<p>三维物体内容是由输入mesh定义的, 其顶点<span class="math inline">\(V \in \mathbb{R}^{n \times 3}\)</span>, 面片<span class="math inline">\(F \in\{1, \ldots, n\}^{m \times 3}\)</span>, 这在整个训练过程中都是固定的.</p>
+<p><u>The object’s style (color and local geometry) is modiﬁed to conform to a target text prompt <span class="math inline">\(t\)</span></u>, resulting in a stylized mesh <span class="math inline">\(M^S\)</span>.</p>
+<p>生成的物体风格需要符合目标文本<span class="math inline">\(t\)</span>的描述, 记格式化的mesh为<span class="math inline">\(M^S\)</span>.</p>
+<p>The NSF learns to <u>map points on the mesh surface <span class="math inline">\(p \in V\)</span> to an RGB color and displacement along the normal direction</u>.</p>
+<p>NSF需要学习mesh的表面点<span class="math inline">\(p \in V\)</span>与最终风格的颜色和沿着法线方向的偏移量之间的映射.</p>
+<p>We <u>render <span class="math inline">\(M^S\)</span> from multiple views and apply 2D augmentations</u> that are embedded using CLIP.</p>
+<p>作者使用多视角渲染<span class="math inline">\(M^S\)</span>并使用增强技术增强图片, 之后将其嵌入到CLIP空间中.</p>
+<p>The <u>CLIP similarity between the rendered and augmented images and the target text is used as a signal to update the neural network weights</u>.</p>
+<p>将渲染图片和增强图片与目标文本之间的CLIP相似度分数用作更新神经网络权重的信号.</p>
+<h4 id="neural-style-field-network部分">Neural Style Field Network部分</h4>
+<p>Our NSF network <u>produces a style attribute for every vertex which results in a <em>style ﬁeld</em> deﬁned over the entire shape surface</u>.</p>
+<p>NSF网络为风格域上的每个表面点分别计算风格属性.</p>
+<p>Our style ﬁeld is represented as an MLP, which <u>maps a point <span class="math inline">\(p \in V\)</span> on the mesh surface <span class="math inline">\(M\)</span> to a color and displacement along the surface normal <span class="math inline">\((c_p, d_p) \in (\mathbb{R}^{3}, \mathbb{R})\)</span></u>.</p>
+<p>风格域被一个多重感知器描述, 将mesh的面上一点<span class="math inline">\(p \in V\)</span>与颜色和沿着表面法线方向的偏移<span class="math inline">\((c_p, d_p) \in (\mathbb{R}^{3}, \mathbb{R})\)</span>建立映射关系.</p>
+<p>In practice, we <u>treat the given vertices of <span class="math inline">\(M\)</span> as query points into this ﬁeld</u>, and <u>use a differentiable renderer to visualize the style over the given triangulation</u>.</p>
+<p>作者将<span class="math inline">\(M\)</span>中的表面点视作在风格域中进行查询的点, 使用一个差分渲染器来可视化输出的风格.</p>
+<p><u>Increasing the number of triangles in <span class="math inline">\(M\)</span></u> for the purposes of learning a neural ﬁeld with ﬁner granularity is trivial.</p>
+<p>可以尝试增加<span class="math inline">\(M\)</span>中三角面片的数量来获取更好的表现.</p>
+<p>Even using a standard GPU (11GB of VRAM) our method handles meshes with up to 180K triangles.</p>
+<p>使用一个常规的GPU, 作者的方法能够处理180K个三角面片.</p>
+<p>Since our NSF uses low-dimensional coordinates as input to an MLP, <u>this exhibits a spectral bias toward smooth solutions</u>.</p>
+<p>由于NSF使用低维度的坐标作为多重感知器的输入, 因此会有倾向于光滑结果的频谱偏置.</p>
+<p>To synthesize high-frequency details, we <u>apply a positional encoding using fourier feature mappings</u>, which enables MLPs to overcome the spectral bias and learn to interpolate high-frequency functions.</p>
+<p>为了能够合成高频信息, 作者使用了傅里叶特征的位置编码, 这帮助多重感知器克服频谱偏置并学习到高频信息.</p>
+<p><u>For every point <span class="math inline">\(p\)</span> its positional encoding <span class="math inline">\(\gamma(p)\)</span> is given by:</u></p>
+<p>对于任意一点<span class="math inline">\(p\)</span>, 其位置编码<span class="math inline">\(\gamma(p)\)</span>定义如下: <span class="math display">\[
+\gamma(p)=[\cos (2 \pi \mathbf{B} p), \sin (2 \pi \mathbf{B} p)]^{\mathrm{T}}
+\]</span></p>
+<p>where <u><span class="math inline">\(B \in \mathbb{R}^{n \times 3}\)</span> is a random Gaussian matrix where each entry is randomly drawn from <span class="math inline">\(\mathcal{N}\left(0, \sigma^{2}\right)\)</span></u>.</p>
+<p>其中<span class="math inline">\(B \in \mathbb{R}^{n \times 3}\)</span>是一个高斯随机矩阵, 其分布由<span class="math inline">\(\mathcal{N}\left(0, \sigma^{2}\right)\)</span>确定.</p>
+<p><u>The value of <span class="math inline">\(\sigma\)</span> is chosen as a hyperparameter which controls the frequency of the learned style function.</u></p>
+<p><span class="math inline">\(\sigma\)</span>是一个控制风格频率的超参数.</p>
+<p>First, we <u>normalize the coordinates <span class="math inline">\(p \in V\)</span> to lie inside a unit bounding box</u>.</p>
+<p>首先, 作者将<span class="math inline">\(p \in V\)</span>归一化到一个单位大小的正方体内.</p>
+<p>Then, the <u>per-vertex positional encoding features <span class="math inline">\(\gamma(p)\)</span> are passed as input to an MLP <span class="math inline">\(N_s\)</span>, which then branches out to MLPs <span class="math inline">\(N_d\)</span> and <span class="math inline">\(N_c\)</span></u>.</p>
+<p>之后, 每个顶点的位置编码<span class="math inline">\(\gamma(p)\)</span>会被传到多重感知器<span class="math inline">\(N_s\)</span>里, 然后会分出<span class="math inline">\(N_d\)</span>和<span class="math inline">\(N_c\)</span>两个多重感知器.</p>
+<p>Speciﬁcally, <u>the output of <span class="math inline">\(N_c\)</span> is a color <span class="math inline">\(c_p \in [0, 1]^3\)</span></u>, and <u>the output of <span class="math inline">\(N_d\)</span> is a displacement along the vertex normal <span class="math inline">\(d_p\)</span></u>.</p>
+<p><span class="math inline">\(N_c\)</span>的输出是颜色<span class="math inline">\(c_p \in [0, 1]^3\)</span>, <span class="math inline">\(N_d\)</span>的输出是沿着顶点的法线方向的位移量<span class="math inline">\(d_p\)</span>.</p>
+<p>To <u>prevent content-altering displacements</u>, we constrain <span class="math inline">\(d_p\)</span> to be in the range <span class="math inline">\((−0.1, 0.1)\)</span>.</p>
+<p>为了防止越界和形状变化过大, 作者限制<span class="math inline">\(d_p\)</span>的范围为<span class="math inline">\((−0.1, 0.1)\)</span>.</p>
+<p>To obtain our stylized mesh prediction <span class="math inline">\(M^S\)</span>, <u>every point <span class="math inline">\(p\)</span> is displaced by <span class="math inline">\(d_p \cdot \vec{n}_p\)</span> and colored by <span class="math inline">\(c_p\)</span></u>.</p>
+<p>为了获取最终的<span class="math inline">\(M^S\)</span>, 所有的点<span class="math inline">\(p\)</span>都需要位移<span class="math inline">\(d_p \cdot \vec{n}_p\)</span>并更新颜色<span class="math inline">\(c_p\)</span>.</p>
+<p>Vertex colors propagate over the entire mesh surface <u>using an interpolation-based differentiable renderer</u>.</p>
+<p>顶点颜色使用基于插值的差分渲染的方式传播到整个表面.</p>
+<p>During training we also consider <u>the displacement-only mesh <span class="math inline">\(M_{\text{displ}}^S\)</span>, which is the same as <span class="math inline">\(M^S\)</span> without the predicted vertex colors (replaced by gray)</u>.</p>
+<p>在训练期间, 作者也考虑仅有偏移量的<span class="math inline">\(M_{\text{displ}}^S\)</span>, 其与<span class="math inline">\(M^S\)</span>的几何结构一模一样只是没有预测的颜色(全部被灰色替代).</p>
+<p>Without the use of <span class="math inline">\(M_{\text{displ}}^S\)</span> in our ﬁnal loss formulation, <u>the learned geometric style is noisier</u>.</p>
+<p>如果不在损失函数中使用<span class="math inline">\(M_{\text{displ}}^S\)</span>会导致生成结果的几何结构包含许多噪音.</p>
+<h4 id="text-based-correspondence部分">Text-based correspondence部分</h4>
+<p>Our neural optimization is guided by the <u>multi-modal embedding space provided by a pre-trained CLIP model</u>.</p>
+<p>作者提出的网络的优化是基于将多模态表示使用预训练的CLIP模型嵌入到CLIP空间的方式进行的.</p>
+<p>Given the stylized mesh <span class="math inline">\(M^S\)</span> and the displaced mesh <span class="math inline">\(M_{\text{displ}}^S\)</span>, we <u>sample <span class="math inline">\(n_\theta\)</span> views around a pre-deﬁned anchor view and render them using a differentiable renderer</u>.</p>
+<p>对于格式化后的mesh输出<span class="math inline">\(M^S\)</span>及其对应的几何结构<span class="math inline">\(M_{\text{displ}}^S\)</span>, 作者基于预先定义好的锚点视角随机采样<span class="math inline">\(n_\theta\)</span>个视角, 根据这些视角使用差分渲染器获取渲染的图片.</p>
+<p>For each view, <span class="math inline">\(\theta\)</span>, we <u>render two 2D projections of the surface, <span class="math inline">\(I_{\theta}^{\text{full}}\)</span> for <span class="math inline">\(M^S\)</span> and <span class="math inline">\(I_{\theta}^{\text{displ}}\)</span> for <span class="math inline">\(M_{\text{displ}}^S\)</span></u>.</p>
+<p>对每个视角<span class="math inline">\(\theta\)</span>, 作者获取两张渲染图, <span class="math inline">\(M^S\)</span>对应的<span class="math inline">\(I_{\theta}^{\text{full}}\)</span>和<span class="math inline">\(M_{\text{displ}}^S\)</span>对应的<span class="math inline">\(I_{\theta}^{\text{displ}}\)</span>.</p>
+<p>Next, we draw <u>a 2D augmentation <span class="math inline">\(\psi_{\text{global}} \in \Psi_{\text{global}}\)</span> and <span class="math inline">\(\psi_{\text{local}} \in \Psi_{\text{local}}\)</span></u>.</p>
+<p>之后, 作者使用两个图像增强方法<span class="math inline">\(\psi_{\text{global}} \in \Psi_{\text{global}}\)</span>和<span class="math inline">\(\psi_{\text{local}} \in \Psi_{\text{local}}\)</span>.</p>
+<p>We <u>apply <span class="math inline">\(\psi_{\text{global}}\)</span>, <span class="math inline">\(\psi_{\text{local}}\)</span> to the full view and <span class="math inline">\(\psi_{\text{local}}\)</span> to the uncolored view, and embed them into CLIP space</u>.</p>
+<p>作者将<span class="math inline">\(\psi_{\text{global}}\)</span>和<span class="math inline">\(\psi_{\text{local}}\)</span>应用到<span class="math inline">\(I_{\theta}^{\text{full}}\)</span>, 将<span class="math inline">\(\psi_{\text{local}}\)</span>应用到<span class="math inline">\(I_{\theta}^{\text{displ}}\)</span>, 并将增强后的结果嵌入到CLIP空间.</p>
+<p>Finally, we <u>average the embeddings across all views</u>:</p>
+<p>最后, 作者计算所有视角嵌入CLIP空间的平均值. <span class="math display">\[
+\begin{aligned}
+\hat{S}^{\text {full }} &amp;=\frac{1}{n_{\theta}} \sum_{\theta} E\left(\psi_{\text {global }}\left(I_{\theta}^{\text {full }}\right)\right) \in \mathbb{R}^{512} \\
+\hat{S}^{\text {local }} &amp;=\frac{1}{n_{\theta}} \sum_{\theta} E\left(\psi_{\text {local }}\left(I_{\theta}^{\text {full }}\right)\right) \in \mathbb{R}^{512} \\
+\hat{S}^{\text {displ }} &amp;=\frac{1}{n_{\theta}} \sum_{\theta} E\left(\psi_{\text {local }}\left(I_{\theta}^{\text {displ }}\right)\right) \in \mathbb{R}^{512}
+\end{aligned}
+\]</span></p>
+<p>That is, we <u>consider an augmented representation of our input mesh as the average of its encoding from multiple augmented views</u>.</p>
+<p>作者将输入mesh的一个增强的表现形式看作其多个增强后的视角编码的平均值.</p>
+<p>The <u>target <span class="math inline">\(t\)</span> is similarly embedded through CLIP by <span class="math inline">\(\phi_{\text{target}} = E (t) \in \mathbb{R}^{512}\)</span></u>.</p>
+<p>目标<span class="math inline">\(t\)</span>也类似的嵌入CLIP空间<span class="math inline">\(\phi_{\text{target}} = E (t) \in \mathbb{R}^{512}\)</span>.</p>
+<p>Our loss is then:</p>
+<p>损失函数如下: <span class="math display">\[
+\mathcal{L}_{\mathrm{sim}}=\sum_{\hat{S}} \operatorname{sim}\left(\hat{S}, \phi_{\mathrm{target}}\right)
+\]</span> where <span class="math inline">\(\hat{S} \in\left\{\hat{S}^{\text {full }}, \hat{S}^{\text {displ }}, \hat{S}^{\text {local }}\right\}\)</span> and <span class="math inline">\(\operatorname{sim}(a, b)=\frac{a \cdot b}{|a| \cdot|b|}\)</span> is the <u>cosine similarity between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span></u>.</p>
+<p>其中<span class="math inline">\(\hat{S} \in\left\{\hat{S}^{\text {full }}, \hat{S}^{\text {displ }}, \hat{S}^{\text {local }}\right\}\)</span>, 并且<span class="math inline">\(\operatorname{sim}(a, b)=\frac{a \cdot b}{|a| \cdot|b|}\)</span>是<span class="math inline">\(a\)</span>和<span class="math inline">\(b\)</span>之间的余弦相似度.</p>
+<p>We <u>repeat the above with new sampled augmentations <span class="math inline">\(n_{\text{aug}}\)</span> times for each iteration</u>.</p>
+<p>每次迭代, 作者重复上述的采样增强过程<span class="math inline">\(n_{\text{aug}}\)</span>次.</p>
+<p>We note that the terms <u>using <span class="math inline">\(\hat{S}^{\text{full}}\)</span> and <span class="math inline">\(\hat{S}^{\text{local}}\)</span> update <span class="math inline">\(N_s\)</span>, <span class="math inline">\(N_c\)</span> and <span class="math inline">\(N_d\)</span> while the term using <span class="math inline">\(\hat{S}^{\text{displ}}\)</span> only updates <span class="math inline">\(N_s\)</span> and <span class="math inline">\(N_d\)</span></u>.</p>
+<p>作者使用<span class="math inline">\(\hat{S}^{\text{full}}\)</span>和<span class="math inline">\(\hat{S}^{\text{local}}\)</span>更新<span class="math inline">\(N_s\)</span>、<span class="math inline">\(N_c\)</span>和<span class="math inline">\(N_d\)</span>, 使用<span class="math inline">\(\hat{S}^{\text{displ}}\)</span>只更新<span class="math inline">\(N_s\)</span>和<span class="math inline">\(N_d\)</span>.</p>
+<p>The <u>separation into a geometry-only loss and geometry-and-color loss is an effective tool for encouraging meaningful changes in geometry</u>.</p>
+<p>分别计算纯几何损失函数和几何及颜色损失函数是一个有效促进有意义的几何变化的方式.</p>
+<h4 id="viewpoints-and-augmentations部分">Viewpoints and Augmentations部分</h4>
+<p>Given an input 3D mesh and target text, we ﬁrst ﬁnd an <u>anchor view</u>.</p>
+<p>对于给定的三维mesh和目标文本, 先要找到锚定视角.</p>
+<p>We render the 3D mesh at <u>uniform intervals around a sphere</u> and <u>obtain the CLIP similarity for each view and target text</u>.</p>
+<p>首先按照均匀间隔绕着一个球用不同的视角渲染三维mesh, 然后将渲染的图片与目标文本进行匹配计算CLIP相似度分数.</p>
+<p>We <u>select the view with the highest (i.e. best) CLIP similarity as the anchor view</u>.</p>
+<p>选择分数最高的视角作为锚点视角.</p>
+<p>Often there are <u>multiple high-scoring views around the object</u>, and using any of them as the anchor will produce an effective and meaningful stylization.</p>
+<p>通常有很多个高分视角, 从中任意选取一个即可.</p>
+<p>We <u>render multiple views of the object from randomly sampled views using a Gaussian distribution centered around the anchor view (with <span class="math inline">\(\sigma=\pi / 4\)</span>)</u>.</p>
+<p>在获取生成mesh的渲染图片时, 以锚点为均值, <span class="math inline">\(\pi / 4\)</span>为方差, 计算高斯分布, 随机采样多个视角进行渲染.</p>
+<p>We <u>average over the CLIP-embedded views prior</u> to feeding them into our loss, which encourages the network to leverage view consistency.</p>
+<p>将这些视角的图片嵌入到CLIP空间中并求取平均值, 然后放入损失函数中, 这样有助于网络利用视角的一致性.</p>
+<p>For all our experiments, <u><span class="math inline">\(n_{\theta}=5\)</span> (number of sampled views)</u>.</p>
+<p>对于所有的实验, 采样的视角数设置为<span class="math inline">\(n_{\theta}=5\)</span>.</p>
+<p>The 2D augmentations generated using <span class="math inline">\(\psi_{\text{global}}\)</span> and <span class="math inline">\(\psi_{\text{local}}\)</span> are critical for our method to <u>avoid degenerate solutions</u>.</p>
+<p>由<span class="math inline">\(\psi_{\text{global}}\)</span>和<span class="math inline">\(\psi_{\text{local}}\)</span>定义的二维增强方法对于防止退化的情况至关重要.</p>
+<p><span class="math inline">\(\psi_{\text{global}}\)</span> involves a random perspective transformation and <span class="math inline">\(\psi_{\text{local}}\)</span> generates both a random perspective and a random crop that is <span class="math inline">\(10\%\)</span> of the original image.</p>
+<p><span class="math inline">\(\psi_{\text{global}}\)</span>包括一个随机的透视变换. <span class="math inline">\(\psi_{\text{local}}\)</span>包括一个随机的透视变换和一个随机裁剪原图的<span class="math inline">\(10\%\)</span>的子图.</p>
+<p>Cropping allows the network to <u>focus on localized regions</u> when making ﬁne grained adjustments to the surface geometry and color.</p>
+<p>裁剪有助于帮助网络获取局部的细节用于优化表面的几何结构和颜色.</p>
+<h3 id="experiments部分">Experiments部分</h3>
+<p>We consider a variety of sources including: <u>COSEG, Thingi10K, Shapenet, Turbo Squid, and ModelNet</u>.</p>
+<p>作者考虑了一批不同来源的数据: COSEG、Thingi10K、Shapenet、Turbo Squid和ModelNet.</p>
+<p>Our method requires <u>no particular quality constraints or preprocessing of inputs</u>, and the breadth of shapes we stylize in this paper and in our project webpage illustrates its ability to handle low-quality meshes.</p>
+<p>作者提出的方法对于输入mesh没有任何限制, 因此即使是低质量的mesh也可以被处理.</p>
+<p>Our method takes <u>less than 25 minutes to train on a single GPU</u>, and <u>high quality results usually appear in less than 10 minutes</u>.</p>
+<p>作者的方法只需要不到25分钟即可在单张GPU上训练好, 预测高质量的结果也只需要不到10分钟.</p>
+<h4 id="neural-stylization-and-controls部分">Neural Stylization and Controls部分</h4>
+<h5 id="fine-grained-controls">Fine Grained Controls</h5>
+<p>Our network leverages a <u>positional encoding where the range of frequencies can be directly controlled by the standard deviation <span class="math inline">\(\sigma\)</span> of the <span class="math inline">\(\mathbf{B}\)</span> matrix</u>.</p>
+<p>作者使用了位置编码, 因此纹理频率可以直接由<span class="math inline">\(\mathbf{B}\)</span>矩阵的标准差<span class="math inline">\(\sigma\)</span>控制.</p>
+<p>In following figure, we show the results of <u>three different frequency values</u> when stylizing a source mesh of a torus towards the target text 'stained glass donut'.</p>
+<p>下图展示了不同频率值对于相同的输入的影响, 文本输入是"彩色玻璃甜甜圈".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062111336.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Increasing the frequency value <u>increases the frequency of style details</u> on the mesh and <u>produces sharper and more frequent displacements along the normal direction</u>.</p>
+<p>增大频率值增加了纹理的出现频率也让mesh表面更加锐利, 沿着法线方向的偏移出现地也越频繁.</p>
+<p>We further demonstrate our method’s ability to successfully <u>synthesize styles of varying levels of speciﬁcity</u>.</p>
+<p>作者提出的方法还能够生成不同层级地风格.</p>
+<p><u>Increasing the target text prompt granularity for a source mesh of a lamp and iron.</u> Top row targets: (a). 'Lamp', (b).'Luxo lamp', (c).'Blue steel luxo lamp', (d).'Blue steel luxo lamp with corrugated metal'. Bottom row targets: (a).'Clothes iron', (b).'Clothes iron made of crochet', (c).'Golden clothes iron made of crochet', (d).'Shiny golden clothes iron made of crochet'.</p>
+<p>增加灯和熨斗的目标文本的层级。第一行: (a)."灯", (b)."Luxo灯", (c)."蓝色钢制Luxo灯", (d)."带波纹金属的蓝色钢制Luxo灯". 最后一行：(a)."衣服熨斗", (b)."用钩针制成的熨斗", (c)."用钩针制成的金熨斗", (d)."用钩针制成的闪亮的金色衣服的熨斗".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062113223.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Though the primary mode of style control is through the <u>text prompt</u>, we explore the way the network adapts to <u>the geometry of the source shape</u>.</p>
+<p>虽然样式控制主要是通过文本进行的, 但输入的mesh形状也有影响.</p>
+<p>In following figure, the target text prompt is ﬁxed to 'cactus'.</p>
+<p>在下图中, 文本描述被限定为"仙人掌".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062115512.png" srcset="/img/loading.gif" lazyload /></p>
+<p>We consider different input source spheres with <u>increasing protrusion frequency</u>.</p>
+<p>突起频率的增加的不同的球形mesh进行输入.</p>
+<p>Observe that both the frequency and structure of the generated style changes to <u>align with the pre-existing structure of the input surface</u>.</p>
+<p>这些不同球形mesh的输出各不相同, 且输出的突起频率与输入类似.</p>
+<p>This shows that our method has the ability to <u>preserve the content of the input mesh without compromising the quality of the stylization</u>.</p>
+<p>这表明作者的方法能够保留输入mesh的结构, 而不会影响样式化的质量.</p>
+<p>Meshes with corresponding connectivity can be used to <u>morph between two surfaces</u>.</p>
+<p>具有相应连接性的网格可用于在两个曲面之间变形.</p>
+<p>Thus, <u>our ability to modify style while preserving the input mesh enables morphing</u>.</p>
+<p>因此, 作者提出的方法能够在保留输入mesh结构的同时修改样式, 从而可以实现变形.</p>
+<p>To morph between meshes, we apply <u>linear interpolation between the style value</u> (RGB and displacement) of every point on the mesh, for each instance of the stylized mesh.</p>
+<p>在两个不同的风格的mesh之间使用线性插值的方式(对每个点的颜色和偏移量进行插值)获得两个不同风格之间的渐变效果.</p>
+<p>Morphing between two different stylizations (geometry and color). Left:'wooden chair', right:'colorful crochet chair'.</p>
+<p>两种不同样式(几何结构和颜色)之间的变形.左: "木椅", 右: "彩色钩针椅".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062118366.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="text2mesh-priors部分">Text2Mesh Priors部分</h4>
+<p>Our method incorporates a number of priors that allow us to perform stylization <u>without a pre-trained GAN</u>.</p>
+<p>作者提出的方法使用了一系列先验, 因此不需要使用预训练GAN.</p>
+<p><u>Ablation on the priors used in our method (full) for a candle mesh and target 'Candle made of bark'</u>: w/o our style ﬁeld network (−net), w/o 2D augmentations (−aug), w/o positional encoding (−FFN), w/o crop augmentations for <span class="math inline">\(\psi_{\text{local}}\)</span> (−crop), w/o the geometry-only component of <span class="math inline">\(L_{\text{sim}}\)</span> (−displ), and learning over a 2D plane in 3D space (−3D). We show the CLIP score (<span class="math inline">\(\text{sim}(\hat{S}^{\text{full}}, \phi_{\text{target}})\)</span>).</p>
+<p>先验信息的消融实验结果, 输入时一个蜡烛的mesh和风格文本"树皮做的蜡烛": 没有NSF网络(-net)、没有二维图像增强(-aug)、没有位置编码(-FFN)、没有裁剪的<span class="math inline">\(\psi_{\text{local}}\)</span>(-crop)、没有几何结构损失函数<span class="math inline">\(L_{\text{sim}}\)</span>(-displ)和只学习二维平面(-3D). 通过<span class="math inline">\(\text{sim}(\hat{S}^{\text{full}}, \phi_{\text{target}})\)</span>计算的CLIP分数在图中最下面展示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062043618.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Removing the style ﬁeld network (−net), and instead directly optimizing the vertex colors and displacements, results in <u>noisy and arbitrary displacements over the surface</u>.</p>
+<p>移除NSF网络会导致表面随机且充满噪音的出现偏移.</p>
+<p><u>Random 2D augmentations are necessary</u> to generate meaningful CLIP-guided drawings.</p>
+<p>随机的二维增强对于利用CLIP来说时十分重要的.</p>
+<p>We observe the same phenomena in our method, whereby removing 2D augmentations results in <u>a stylization completely unrelated to the target text prompt</u>.</p>
+<p>在没有使用图像增强的情况下, 风格化的结果与目标文本描述相差甚远.</p>
+<p>Without fourier feature encoding (−FFN), the generated style <u>loses all ﬁne-grained details</u>.</p>
+<p>不使用位置编码会导致所有的细节缺失.</p>
+<p>With the cropping augmentation removed (−crop), the output is similarly <u>unable to synthesize the ﬁne-grained style details</u> that deﬁne the target.</p>
+<p>不进行局部裁剪会导致无法生成满足目标文本描述的细节.</p>
+<p>Removing the geometry-only component of <span class="math inline">\(L_{\text{sim}}\)</span> (−displ) <u>hinders geometric reﬁnement</u>, and the network instead compensates by simulating geometry through shading.</p>
+<p>不使用几何损失函数导致几何结构的优化出现问题, 网络倾向于使用阴影来模拟几何结构.</p>
+<p>Without a geometric prior (−3D) there is no source mesh to impose global structure, thus, <u>the 2D plane in 3D space is treated as an image canvas</u>.</p>
+<p>在没有三维输入的时候, 三维空间的一个二维平面被视为一张图像的画布.</p>
+<p>Our method obtains the <u>highest score</u> across different ablations.</p>
+<p>在消融实验中, 作者提出的方法获得了最高的分数.</p>
+<p>Ideally, there is <u>a correlation between visual quality and CLIP scores</u>.</p>
+<p>在理想情况下, 视觉效果和CLIP分数存在一定的相关性.</p>
+<p>However, <u>-3D manages to achieve a high CLIP similarity</u>, despite its zero regard for global content semantics.</p>
+<p>然而, 在没有三维输入的情况下, 仍然能够获得很高的CLIP相似度分数.</p>
+<p>This shows an example of <u>how CLIP may naively prefer degenerate solutions</u>, while our geometric prior steers our method away from these solutions.</p>
+<p>这从侧面展示了CLIP倾向于退化的结果, 但是作者提出的先验有效避免了这个.</p>
+<h5 id="interplay-of-geometry-and-color">Interplay of Geometry and Color</h5>
+<p>Our method utilizes the <u>interplay between geometry and color for effective stylization</u>.</p>
+<p>作者提出的方法有效利用了颜色和几何特征.</p>
+<p>Interplay between geometry and color for stylization. <em>Full</em> - our method, <em>Color</em> - only color changes, and <em>Geometry</em> - only geometric changes. We also display the CLIP similarity.</p>
+<p>下图展示了几何结构和颜色在风格转换中的作用. <em>Full</em>代表全部使用, <em>Color</em>代表只使用颜色变化, <em>Geometry</em>代表只使用几何变化. CLIP相似度分数也在最下面展示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062050060.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Learning to predict only geometric manipulations produces inferior geometry compared to learning geometry and color together, as the network <u>attempts to simulate shading by generating displacements for self shadowing</u>.</p>
+<p>只是用几何特征相比于使用颜色和几何特征表现更差, 因为在只使用几何特征的情况下, 网络倾向于生成几何纹理来模拟阴影.</p>
+<p>Similarly learning to predict only color results in the network <u>attempting to hallucinate geometric detail through shading</u>, leading to a ﬂat and unrealistic texture that nonetheless is capable of achieving a relatively high CLIP score when projected to 2D.</p>
+<p>只是用颜色特征也表现不好, 网络会错误的将阴影认为时几何特征, 从而导致几何结构的缺失. 因为在光滑的表面进行投影能够获取更高的CLIP分数.</p>
+<h4 id="stylization-fidelity部分">Stylization Fidelity部分</h4>
+<p>Our method performs the task of <u>general text-driven stylization of meshes</u>.</p>
+<p>作者提出的方法是基于文本的mesh风格化.</p>
+<p>Given that no approaches exist for this task, we evaluate our method’s performance by <u>extending VQGAN-CLIP</u>.</p>
+<p>由于没有其他的现存算法针对这个任务, 作者拓展了VQGAN-CLIP算法作为基准.</p>
+<p>This baseline <u>synthesizes color inside a binary 2D mask projected from the 3D source shape</u> (without 3D deformations) guided by CLIP.</p>
+<p>这个基准通过CLIP指导合成从三维物体投影的二维二值模板内部的颜色.</p>
+<p>Further, the baseline is <u>initialized with a rendered view of the 3D source</u>.</p>
+<p>这个基准需要使用三维物体的一个视角的渲染图片来初始化.</p>
+<p>We conduct a user study to <u>evaluate the perceived quality of the generated outputs, the degree to which they preserve the source content, and how well they match the target style</u>.</p>
+<p>作者进行了一次用户调研来评估生成mesh的质量、生成mesh在多大程度上保持了源物体的结构以及生成的mesh在多大程度上满足了格式化的要求.</p>
+<p>We had <u>57 users evaluate 8 random source meshes and style text prompt combinations</u>.</p>
+<p>一共有57个用户在8组不同的结果上进行测试.</p>
+<p>For each combination, we <u>display the target text and the stylized output in pairs</u>.</p>
+<p>作者在调研的时候成对地放置风格文本和输出地mesh.</p>
+<p>The users are then asked to assign a score (1-5) to three factors:</p>
+<ul>
+<li>(Q1) "How natural is the output depiction of {content} + {style}?"</li>
+<li>(Q2) "How well does the output match the original {content}?"</li>
+<li>(Q3) "How well does the output match the target {style}?"</li>
+</ul>
+<p>用户使用分数1到5回答下列问题:</p>
+<ul>
+<li>输出在多大程度上自然地描述了{输入点云}+{风格文本}?</li>
+<li>输出在多大程度上与原始{输入点云}保持一致?</li>
+<li>输出在多大程度上与{风格文本}地描述保持一致?</li>
+</ul>
+<p>We report the mean opinion <u>scores with standard deviations</u> in parentheses for each factor averaged across all style outputs for our method and the baseline in following table.</p>
+<p>下表显示了用户调研地结果, 作者地方法和基线地方法在每个问题上地分数通过均值(标准差)的形式表示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062019507.png" srcset="/img/loading.gif" lazyload /></p>
+<p>We include <u>three control questions where the images and target text do not match</u>, and obtain a mean control score of <span class="math inline">\(1.16\)</span>.</p>
+<p>作者设置了控制问题(图像和目标文本完全不匹配的例子), 这些控制问题的得分是<span class="math inline">\(1.16\)</span>.</p>
+<p>Our method <u><em>outperforms the VQGAN baseline across all questions</em></u>, with a difference of <span class="math inline">\(1.07\)</span>, <span class="math inline">\(0.44\)</span>, and <span class="math inline">\(1.32\)</span> for Q1-Q3, respectively.</p>
+<p>作者提出的方法在Q1-Q3都超过了基准方法, 超过的分数依次是<span class="math inline">\(1.07\)</span>、<span class="math inline">\(0.44\)</span>和<span class="math inline">\(1.32\)</span>.</p>
+<p>Though VQGAN is somewhat <u>effective at representing the natural content</u> in our prompts, perhaps due to the <u>implicit content signal it receives from the mask</u>, it struggles to synthesize these representations with style in a meaningful way.</p>
+<p>VQGAN在表现自然内容方面是有效的, 但是由于其从模板接受隐式内容信号, 导致其无法有效的合成相关的表达.</p>
+<h4 id="beyond-textual-stylization部分">Beyond Textual Stylization部分</h4>
+<p>Beyond text-based stylization, our method can be used to <u>stylize a mesh toward different target modalities</u> such as a 2D image or even a 3D object.</p>
+<p>除了使用文本进行格式化, 作者提出的框架还能够使用不同的模态进行格式化, 例如图像甚至三维物体.</p>
+<p>For a target 2D image <span class="math inline">\(I_t\)</span>, <u><span class="math inline">\(\phi_{\text{target}}\)</span> represents the image-based CLIP embedding of <span class="math inline">\(I_t\)</span></u>.</p>
+<p>对于图像<span class="math inline">\(I_t\)</span>, <span class="math inline">\(\phi_{\text{target}}\)</span>代表将图像<span class="math inline">\(I_t\)</span>嵌入CLIP空间.</p>
+<p>Stylization <u>driven by an image target</u>.</p>
+<p>基于图像的格式化.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062012132.png" srcset="/img/loading.gif" lazyload /></p>
+<p>For a target mesh <span class="math inline">\(T\)</span>, <u><span class="math inline">\(\phi_{\text{target}}\)</span> is the average embedding, in CLIP space, of the 2D renderings of <span class="math inline">\(T\)</span></u>, where the views are the same as those sampled for the source mesh.</p>
+<p>对于<span class="math inline">\(T\)</span>代表的mesh, <span class="math inline">\(\phi_{\text{target}}\)</span>代表了将<span class="math inline">\(T\)</span>按照与输入mesh一致的视角进行二维渲染得到的图片嵌入CLIP空间的均值.</p>
+<p>Beyond different modalities, we can <u>combine targets across different modalities by simply summing <span class="math inline">\(\mathcal{L}_{\text {sim}}\)</span> over each target</u>.</p>
+<p>除了不同的模态, 作者认为还可以融合多个模态, 通过简单的叠加每个模态的<span class="math inline">\(\mathcal{L}_{\text {sim}}\)</span>.</p>
+<p>Neural stylization <u>driven by mesh targets</u>. (a) &amp; (c) are styled using Targets 1 &amp; 2, respectively. (b) &amp; (d) are styled with text in addition to the mesh targets: (b) 'a cactus that looks like a cow', (d) 'a mouse that looks like a duck'.</p>
+<p>基于mesh的格式化. (a)和(c)分别使用Target 1和Target 2进行格式化. (b) &amp; (d)在分别使用Target 1和Target 2进行格式化的同时还使用文本进行格式化: (b)"像奶牛一样的仙人掌", (d)"像鸭子一样的老鼠".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201062013015.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="incorporating-symmetries部分">Incorporating Symmetries部分</h4>
+<p>We can make use of prior knowledge of the <u>input shape symmetry</u> to <u>enforce style consistency across the axis of symmetry</u>.</p>
+<p>作者提出的框架可以利用输入形状的对称性作为先验来强制保证对称轴对称部分的一致性.</p>
+<p>Such symmetries can be introduced into our model by <u>modifying the input to our positional encoding</u>.</p>
+<p>这种对称性可以通过修改位置编码的方式实现.</p>
+<p>For instance, <u>given a point <span class="math inline">\(p = (x, y, z)\)</span> and a shape with bilateral symmetry across the <span class="math inline">\(X-Y\)</span> plane</u>, one can <u>apply a function prior to the the positional encoding such that <span class="math inline">\(\gamma (x, y, \abs{z})\)</span></u>.</p>
+<p>例如, 对于沿着<span class="math inline">\(X-Y\)</span>平面对称的物体的任意一点<span class="math inline">\(p = (x, y, z)\)</span>, 可以修改位置编码为<span class="math inline">\(\gamma (x, y, \abs{z})\)</span>.</p>
+<p>Effect of the <u>symmetry prior on a UFO mesh input</u> with text prompt: 'colorful UFO'.</p>
+<p>下图是对一个UFO的mesh有无使用对称性先验的生成结果, 输入的文本是"colorful UFO".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061951971.png" srcset="/img/loading.gif" lazyload /></p>
+<p>This prior is <u>effective even when the triangulation is not perfectly symmetrical</u>, since the function is applied in Euclidean space.</p>
+<p>由于这种对称先验使用的函数是在欧几里得空间中进行操作, 这个先验对于那些不是严格对称的物体仍然有效.</p>
+<p>A full investigation into <u>incorporating additional symmetries within positional encoding</u> is an interesting direction for future work.</p>
+<p>将对称性融入位置编码的更完善的研究是未来的一个有意思的研究方向.</p>
+<h4 id="limitations部分">Limitations部分</h4>
+<p>Our method implicitly <u>assumes there exists a synergy between the input 3D geometry and the target style prompt</u>.</p>
+<p>作者提出的方法隐式的假设输入的三维物体和目标风格之间存在一定的联系.</p>
+<p>If the target style is <u>unrelated to the 3D mesh content</u>, the stylization may <u>ignore the 3D content</u>. Results are improved when including the content in the target text prompt.</p>
+<p>当目标风格与三维物体无关的时候, 作者提出的方法会忽略三维物体的形状. 当风格中包含三维物体的描述生成的效果会更好.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061907420.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Therefore, <u>in order to preserve the original content</u> when editing towards a mismatched target prompt, we <u>simply include the object category in the text prompt</u> (e.g., stained glass dragon) which <u>adds a content preservation constraint into the target</u>.</p>
+<p>因此, 为了保护原有的三维形状, 作者简单的在风格文本中加入三维物体的描述, 这有效的保护了三维物体的形状.</p>
+<h3 id="supplement部分">Supplement部分</h3>
+<h4 id="additional-results部分">Additional Results部分</h4>
+<p>Please refer to <u>our project webpage</u> additional results.</p>
+<p>作者的项目网站上有更多的生成结果.</p>
+<h4 id="high-resolution-stylization部分">High Resolution Stylization部分</h4>
+<p>Our method is effective even on coarse inputs, and one can always <u>increase the resolution of a mesh <span class="math inline">\(M\)</span> to learn a neural ﬁeld with ﬁner granularity</u>.</p>
+<p>作者提出的方法在粗糙的输入有很好的表现, 作者认为还可以使用插入顶点的方式增加<span class="math inline">\(M\)</span>对应的三维mesh的分辨率.</p>
+<p>In following figure, we <u>upsample the mesh by inserting a degree-3 vertex in the barycenter of each triangle face of the mesh</u>.</p>
+<p>在如下的图片中, 作者上采样输入的mesh, 通过在三角面片的中心位置插入入度为3的顶点来提升分辨率.</p>
+<p>Style results over a coarse torus (left) and the same mesh with each triangle barycenter inserted as an additional vertex (right). Prompt: 'a donut made of cactus'.</p>
+<p>左边是粗糙的mesh输入, 右边是左边的mesh经过上采样之后的高分辨率mesh输入. 输入的文本是"仙人掌制作的甜甜圈".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061747482.png" srcset="/img/loading.gif" lazyload /></p>
+<p>The network is <u>able to synthesize a ﬁner style by leveraging these additional vertices</u>.</p>
+<p>网络可以利用这些新插入的点合成更好的结果.</p>
+<p>作者使用的上采样过程如下图所示.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061750755.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="choice-of-anchor-view部分">Choice of anchor view部分</h4>
+<p>As mentioned in the main text, we select <u>the view with the highest (i.e. best) CLIP similarity to the content as the anchor</u>.</p>
+<p>作者选取CLIP相似度最高的视角作为锚点视角.</p>
+<p>There are often <u>many possible views that can be chosen as the anchor</u> that will allow a high-quality stylization.</p>
+<p>通常可以作为锚点的视角不止一个.</p>
+<p>找锚点视角的过程: 首先获取三维mesh每个点的法线方向渲染的二维图片, 然后将每张图片嵌入到CLIP空间中, 之后将这个三维mesh物体的文本名称嵌入到CLIP空间中, 比较这两个嵌入形式可以得到一个相似度分数, 选取相似度分数最高的几个视角之一作为锚点视角即可.</p>
+<p>The CLIP score exhibits a strong positive correlation with views that are semantically meaningful, and thus can be used for automatic anchor view selection, as described in the main paper.</p>
+<p>CLIP相似度分数通常与视角图片的语义信息是否有意义正相关.</p>
+<p>This metric is <u>limited in expressiveness</u>, however, as <u>demonstrated by the constrained range</u> that the scores fall within for all the views around the mesh.</p>
+<p>这种方式在表达能力上有所限制, 因为锚点视角只能看到物体的一个范围, 在所有锚点视角上相似度分数较高, 如果考虑其他视角的话, 相似度分数会下降.</p>
+<p><span class="math inline">\(n_{\theta}\)</span>, <u>the number of sampled views</u>, is set to <span class="math inline">\(5\)</span>.</p>
+<p>采样的视角数量<span class="math inline">\(n_{\theta}\)</span>被设置为<span class="math inline">\(5\)</span>.</p>
+<p>We show in following figure that <u>increasing the number of views beyond 5 does little to change the quality of the output stylization</u>. Prompt: 'A horse made of cactus'.</p>
+<p>下图表明增加采样的视角数量对最终生成的结果影响不大. 输入的文本是"仙人掌制作的马".</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061739346.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="training-and-implementation-details部分">Training and Implementation Details部分</h4>
+<h5 id="network-architecture部分">Network Architecture部分</h5>
+<p>We <u>map a vertex <span class="math inline">\(p \in \mathbb{R}^{3}\)</span> to a 256-dimensional Fourier feature</u>.</p>
+<p>作者将一个顶点<span class="math inline">\(p \in \mathbb{R}^{3}\)</span>映射到一个256-dimensional的傅里叶特征.</p>
+<p><u>Typically <span class="math inline">\(5.0\)</span> is used as the standard deviation for the entries of the Gaussian matrix <span class="math inline">\(\mathbf{B}\)</span></u>, although this can be set to the preference of the user.</p>
+<p>作者设置高斯矩阵<span class="math inline">\(\mathbf{B}\)</span>中的标准差为<span class="math inline">\(5.0\)</span>, 也可以设置为其他值.</p>
+<p>The <u>shared MLP layers <span class="math inline">\(N_s\)</span> consist of 4 256-dimensional linear layers with ReLU activation</u>.</p>
+<p>MLP层<span class="math inline">\(N_s\)</span>包含4个256维的带有ReLU激活函数的线性层.</p>
+<p>The branched layers, <span class="math inline">\(N_d\)</span> and <span class="math inline">\(N_c\)</span>, each consist of two 256-dimensional linear layers with ReLU activation.</p>
+<p><span class="math inline">\(N_d\)</span>和<span class="math inline">\(N_c\)</span>这两个分支层各包含2个256维的带有ReLU激活函数的线性层.</p>
+<p>After the ﬁnal linear layer, a tanh activation is applied to each branch.</p>
+<p>在最后一层, tanh激活函数会应用在每个分支.</p>
+<p>The <u>weights of the ﬁnal linear layer of each branch are initialized to zer</u>o so that the original content mesh is unaltered at initialization.</p>
+<p>所有的权重初始化都为0以保证初始时原始的mesh没有被改变.</p>
+<p>We <u>divide the output of <span class="math inline">\(N_c\)</span> by <span class="math inline">\(2\)</span> and add it to <span class="math inline">\([0.5, 0.5, 0.5]\)</span></u>.</p>
+<p>作者将<span class="math inline">\(N_c\)</span>经过tanh激活层的输出除<span class="math inline">\(2\)</span>并加上<span class="math inline">\([0.5, 0.5, 0.5]\)</span>.</p>
+<p>This <u>enforces the final color prediction <span class="math inline">\(c_p\)</span> to be in range <span class="math inline">\((0.0, 1.0)\)</span></u>.</p>
+<p>这个操作保证最终的颜色预测值<span class="math inline">\(c_p\)</span>在范围<span class="math inline">\((0.0, 1.0)\)</span>内.</p>
+<p>We ﬁnd that <u>initializing the mesh color to <span class="math inline">\([0.5, 0.5, 0.5]\)</span> (grey) and adding the network output as a residual helps prevent undesirable solutions in the early iterations of training</u>.</p>
+<p>作者法线初始化mesh的颜色为<span class="math inline">\([0.5, 0.5, 0.5]\)</span>并且以残差的形式连接网络输出和输入的mesh可以防止在早期训练中出现不想要的情况.</p>
+<p>For the branch <span class="math inline">\(N_d\)</span>, we <u>multiply the ﬁnal tanh layer by <span class="math inline">\(0.1\)</span> to get displacements in the range <span class="math inline">\((−0.1, 0.1)\)</span></u>.</p>
+<p>对于<span class="math inline">\(N_d\)</span>层的输出, 作者在tanh激活层之后将其输出乘上<span class="math inline">\(0.1\)</span>来保证偏移距离在<span class="math inline">\((−0.1, 0.1)\)</span>内.</p>
+<h5 id="training部分">Training部分</h5>
+<p>We use the <u>Adam optimizer with an initial learning rate of <span class="math inline">\(5e−4\)</span></u>, and <u>decay the learning rate by a factor of <span class="math inline">\(0.9\)</span> every <span class="math inline">\(100\)</span> iterations</u>.</p>
+<p>作者使用Adam优化器, 初始学习率是<span class="math inline">\(5e−4\)</span>, 每<span class="math inline">\(100\)</span>次迭代学习率乘上系数<span class="math inline">\(0.9\)</span>.</p>
+<p>We train for <span class="math inline">\(1500\)</span> iterations on a single Nvidia GeForce RTX2080Ti GPU, which <u>takes around <span class="math inline">\(25\)</span> minutes to complete</u>.</p>
+<p>作者在单张Nvidia GeForce RTX2080Ti GPU上迭代训练<span class="math inline">\(1500\)</span>次, 大约需要<span class="math inline">\(25\)</span>分钟完成训练.</p>
+<p>For augmentations <span class="math inline">\(\Psi_{\text{global}}\)</span>, we use <u>a random perspective transformation</u>.</p>
+<p>对于图像增强<span class="math inline">\(\Psi_{\text{global}}\)</span>, 作者使用一个随机透视变换.</p>
+<p>For <span class="math inline">\(\Psi_{\text{local}}\)</span>, we randomly crop the image to <span class="math inline">\(10\%\)</span> of its original size and then apply a random perspective transformation.</p>
+<p>对于图像增强<span class="math inline">\(\Psi_{\text{local}}\)</span>, 作者随机裁剪图像到原始尺寸的<span class="math inline">\(10\%\)</span>然后使用一个随机透视变换.</p>
+<p>Before encoding images with CLIP, we normalize per-channel by mean <span class="math inline">\((0.48145466, 0.4578275, 0.40821073)\)</span> and standard deviation <span class="math inline">\((0.26862954, 0.26130258, 0.27577711)\)</span>.</p>
+<p>在使用CLIP编码图片之前, 作者正则化图像的三个通道, 使之均值为<span class="math inline">\((0.48145466, 0.4578275, 0.40821073)\)</span>, 标准差为<span class="math inline">\((0.26862954, 0.26130258, 0.27577711)\)</span>. [这是一组常用的正则化参数.]</p>
+<h4 id="baseline-comparison-and-user-study部分">Baseline Comparison and User Study部分</h4>
+<h4 id="societal-impact部分">Societal Impact部分</h4>
+<p>Our framework utilizes a pre-trained CLIP embedding space, <u>which has been shown to contain bias</u>.</p>
+<p>作者提出的架构利用了预训练的CLIP嵌入空间, 而CLIP嵌入空间已经被证明存在偏置.</p>
+<p>Since our system is capable of synthesizing a style driven by a target text prompt, <u>it enables visualizing such biases in a direct and transparent way</u>.</p>
+<p>由于作者提出的系统能够合成符合文本描述的风格特征, 此系统可以直接透明的将这个偏置可视化出来.</p>
+<p>For example, <u>the nurse style in following figure is biased towards adding female features to the input male shape</u>. Given a human male input, and target prompt: ‘a nurse’, we observe a gender bias in CLIP to favor female shapes.</p>
+<p>例如, 给定一个男性mesh, 限定文字输入为护士, 我们可以观察到输出的mesh在男性mesh上增加了许多女性特征, 这表示CLIP存在偏差, CLIP在护士这一类别上更偏好女性.</p>
+<p><img src="https://raw.githubusercontent.com/chence17/picgo/master/202201061653413.png" srcset="/img/loading.gif" lazyload /></p>
+<p>An important future work may leverage our proposed system in <u>helping create a datasheet for CLIP in addition to future image-text embedding models</u>.</p>
+<p>作者设计的系统也可以帮助未来准备使用CLIP的图像文本嵌入模型制作数据集.</p>
+<h3 id="精读总结">精读总结</h3>
+<blockquote>
+<p>精读目标及效果自测：所读段落是否详细掌握，回答三个的终极问题(你是谁 - 论文提出/采用什么方法、细节是什么；从哪里来 - 论文要解决什么问题/任务、其启发点或借鉴之处在哪；到哪里去 - 论文方法达到什么效果)。</p>
+</blockquote>
+<p>论文构建了一个基于文本的三维物体风格转换器.</p>
+<p>论文使用残差的方式解耦三维物体和风格参数.</p>
+<p>论文将风格参数划分为表面顶点的颜色和沿法线方向的位置偏移, 分别进行回归计算.</p>
+<p>论文采用了多种先验信息(位置编码、图像增强、几何结构等等)构建损失函数, 优化网络权重, 避免获得退化结果.</p>
+<p>论文使用CLIP进行多模态融合, 实现了多模态定义的风格变换.</p>
+<p>论文设计的风格变换架构能够生成质量更好的不同风格的三维物体.</p>
+<h2 id="总结">总结</h2>
+<blockquote>
+<p>总结：总览全文，归纳总结，总结文中创新点，关键点，启发点（论文idea的来源或者说是论文的motivation）等重要信息。</p>
+</blockquote>
+<p>论文的创新点、关键点:</p>
+<ul>
+<li>用残差的方式解耦三维物体和风格参数;</li>
+<li>将风格参数划分为表面顶点的颜色和沿法线方向的位置偏移, 分别进行回归计算;</li>
+<li>采用了多种先验信息(位置编码、图像增强、几何结构等等)构建损失函数, 优化网络权重, 避免获得退化结果;</li>
+<li>使用CLIP进行多模态融合, 实现了多模态定义的风格变换;</li>
+<li>设计的风格变换架构能够生成质量更好的不同风格的三维物体.</li>
+</ul>
+<p>论文的启发点:</p>
+<ul>
+<li>CLIP的多模态融合;</li>
+<li>残差解耦三维物体和风格参数;</li>
+<li>多重先验信息防止网络退化.</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/02/FCAF3D-Fully-Convolutional-Anchor-Free-3D-Object-Detection%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">FCAF3D: Fully Convolutional Anchor-Free 3D Object Detection阅读笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
