@@ -39,6 +39,7 @@
 @import "vendor/font-awesome/brands";
 @import "vendor/magnific-popup/magnific-popup";
 @import "print";
+@import "dark";
 
 .paper-box {
     display: flex;
@@ -88,13 +89,18 @@
 }
 
 $scroll_offset : 2em;
-h1:before, .anchor:before { 
-    content: ''; 
-    display: block; 
-    position: relative; 
-    width: 0; 
-    height: $scroll_offset; 
+h1:before, .anchor:before {
+    content: '';
+    display: block;
+    position: relative;
+    width: 0;
+    height: $scroll_offset;
     margin-top: -$scroll_offset;
+}
+
+/* Native smooth scroll offset for sticky masthead */
+h1, h2, h3, .anchor {
+    scroll-margin-top: 5em;
 }
 
 .badge {
@@ -106,4 +112,156 @@ h1:before, .anchor:before {
     color: white;
     background-color: #00369f;
     font-size: .8em;
+}
+
+/* Language switch dropdown */
+.lang-switch {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-left: 0.75em;
+
+    .lang-switch-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 34px;
+        padding: 0 12px;
+        background: transparent;
+        border: 1px solid $border-color;
+        border-radius: 17px;
+        cursor: pointer;
+        font-size: 0.85em;
+        font-family: $sans-serif-narrow;
+        font-weight: bold;
+        color: $text-color;
+        transition: $global-transition;
+        white-space: nowrap;
+
+        &:hover {
+            background: $lighter-gray;
+            border-color: $primary-color;
+        }
+
+        &:focus {
+            outline: 2px solid $primary-color;
+            outline-offset: 2px;
+        }
+    }
+
+    .lang-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 6px;
+        padding: 6px 0;
+        list-style: none;
+        background: #fff;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 30;
+        min-width: 120px;
+
+        /* 透明桥接层：填补按钮与下拉菜单之间的间隙，防止鼠标穿越时菜单消失 */
+        &::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        li {
+            margin: 0;
+        }
+    }
+
+    .lang-option {
+        display: block;
+        padding: 6px 16px;
+        font-size: 0.85em;
+        color: $text-color;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: $lighter-gray;
+        }
+
+        &.current {
+            color: mix(#fff, $text-color, 40%);
+            cursor: default;
+            pointer-events: none;
+
+            &::before {
+                content: "✓ ";
+                font-weight: bold;
+                color: $primary-color;
+            }
+        }
+    }
+
+    /* Show dropdown on hover */
+    &:hover .lang-dropdown,
+    .lang-switch-btn:focus + .lang-dropdown {
+        display: block;
+    }
+}
+
+/* Tighten author bio spacing when multiple locations */
+.author__bio {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+/* Publication sub-headings */
+.page__content h2 {
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid $border-color;
+}
+
+/* Education & Internship items with logo */
+.education-item, .internship-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5em;
+
+    .edu-logo, .intern-logo {
+        flex-shrink: 0;
+        width: 90px;
+        margin-right: 1.5em;
+        text-align: center;
+        background: white;
+        padding: 8px;
+        border-radius: 8px;
+
+        img {
+            max-width: 74px;
+            max-height: 54px;
+            object-fit: contain;
+            vertical-align: middle;
+        }
+    }
+
+    .edu-text, .intern-text {
+        flex: 1;
+
+        p { margin-bottom: 0; }
+    }
+
+    @include breakpoint(max-width $small) {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .edu-logo, .intern-logo {
+            margin-bottom: 0.5em;
+            margin-right: 0;
+        }
+    }
 }

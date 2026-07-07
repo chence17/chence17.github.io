@@ -4,9 +4,9 @@
       <nav id="site-nav" class="greedy-nav">
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item"><a href="#about-me" target="_self">Homepage</a></li>
-          {% for link in site.data.navigation.main %}
-            <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}" target="_self">{{ link.title }}</a></li>
+          <li class="masthead__menu-item masthead__menu-item--lg masthead__menu-home-item"><a href="#about-me" target="_self">主页</a></li>
+          {% for link in site.data.navigation_zh.main %}
+            <li class="masthead__menu-item"><a href="{{ link.url }}" target="_self">{{ link.title }}</a></li>
           {% endfor %}
         </ul>
         <ul class="hidden-links hidden"></ul>
@@ -14,14 +14,14 @@
       <button id="theme-toggle" class="theme-toggle" aria-label="切换深色模式" title="切换深色/浅色模式">
         <span class="icon-dark">☾</span>
         <span class="icon-light">☀</span>
-        <span class="label-dark">Dark</span>
-        <span class="label-light">Light</span>
+        <span class="label-dark">深色</span>
+        <span class="label-light">浅色</span>
       </button>
       <div class="lang-switch">
-        <button class="lang-switch-btn">🌐 Languages ▾</button>
+        <button class="lang-switch-btn">🌐 语言 ▾</button>
         <ul class="lang-dropdown">
-          <li><span class="lang-option current">English</span></li>
-          <li><a href="/zh-cn/" class="lang-option" target="_self">简体中文</a></li>
+          <li><a href="/" class="lang-option" target="_self">English</a></li>
+          <li><span class="lang-option current">简体中文</span></li>
         </ul>
       </div>
     </div>

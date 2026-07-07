@@ -6,9 +6,10 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-title                    : "Lorem ipsum"
-description              : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. "
-repository               : "RayeRen/acad-homepage.github.io"
+title                    : "Ce Chen (陈策)"
+description              : "Ph.D. Student at University of Melbourne. Research on Generative Models, Visual Language Models, and Multimodal Language Models."
+description_zh           : "墨尔本大学博士研究生。研究方向为生成式模型、视觉语言模型与多模态语言模型。"
+repository               : "chence17/chence17.github.io"
 google_scholar_stats_use_cdn : true
 
 # google analytics
@@ -21,15 +22,18 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 
 # Site Author
 author:
-  name             : "Lorem ipsum"
-  avatar           : "images/android-chrome-512x512.png"
-  bio              : "Lorem ipsum College"
-  location         : "Beijing, China"
-  employer         :
-  pubmed           : 
-  googlescholar    : "https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
-  email            : "Lorem@ipsum.com"
-  researchgate     :  # e.g., "https://www.researchgate.net/profile/yourprofile"
+  name             : "Ce Chen (陈策)"
+  name_zh          : "陈策 (Ce Chen)"
+  avatar           : "/images/avatar.jpg"
+  bio              : "HeyGen, Singapore"
+  bio_zh           : "HeyGen, 新加坡"
+  location         : "UniMelb, Australia"
+  location_zh      : "墨尔本大学, 澳大利亚"
+  employer         : ""
+  pubmed           :
+  googlescholar    : "https://scholar.google.com/citations?user=tX8IWwMAAAAJ"
+  email            : "antonio.chan.cc@outlook.com"
+  researchgate     :
   uri              :
   bitbucket        :
   codepen          :
@@ -37,15 +41,17 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : # e.g., "github username"
+  github           : "chence17"
   google_plus      :
   keybase          :
   instagram        :
-  impactstory      : # e.g., "https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
+  impactstory      :
   lastfm           :
-  linkedin         : # e.g., "linkedin username"
-  dblp             : # e.g., "https://dblp.org/pid/xx/xxxx.html"
-  orcid            : # e.g., "https://orcid.org/xxxx"
+  linkedin         : "ce-chen-313709271"
+  dblp             : "https://dblp.org/pid/02/9980"
+  orcid            : "https://orcid.org/0009-0001-8267-8346"
+  semanticscholar  : "https://www.semanticscholar.org/author/Ce-Chen/2109475444"
+  openreview       : "https://openreview.net/profile?id=~Ce_Chen1"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username

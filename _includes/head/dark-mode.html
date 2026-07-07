@@ -1,0 +1,13 @@
+<!-- Dark mode: theme-color meta tags for browser toolbar -->
+<meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+<!-- Dark mode: auto-detection script (runs before page paint to prevent FOUC) -->
+<script>
+(function() {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark' || t === 'light') {
+    document.documentElement.setAttribute('data-theme', t);
+  }
+})();
+</script>

@@ -1,0 +1,884 @@
+/* ==========================================================================
+   Dark Mode
+   ========================================================================== */
+
+@mixin dark-mode {
+
+  /* ==========================================================================
+     1. Base Elements
+     ========================================================================== */
+
+  body {
+    color: #d4d4dc;
+    background-color: #1a1a2e;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #e8e8f0;
+  }
+
+  a {
+    color: #64b5f6;
+
+    &:visited {
+      color: #90a4ae;
+    }
+
+    &:hover, &:active {
+      color: #90caf9;
+    }
+  }
+
+  u, ins {
+    border-bottom-color: #d4d4dc;
+  }
+
+  abbr[title], abbr[data-original-title] {
+    border-bottom-color: #d4d4dc;
+  }
+
+  blockquote {
+    border-left-color: #8d959b;
+  }
+
+  hr {
+    border-top-color: #2d2d44;
+  }
+
+  /* inline code */
+  p > code,
+  a > code,
+  li > code,
+  figcaption > code,
+  td > code {
+    background: #1e1e2e;
+    border-color: #2d2d44;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Figure captions */
+  figcaption {
+    color: mix(#000, $gray, 30%);
+
+    a {
+      border-bottom-color: #3a3a52;
+
+      &:hover {
+        color: #d4d4dc;
+        border-bottom-color: #d4d4dc;
+      }
+    }
+  }
+
+
+  /* ==========================================================================
+     2. Masthead (Top Navigation Bar)
+     ========================================================================== */
+
+  .masthead {
+    background-color: #1e1e36;
+    border-bottom-color: #2d2d44;
+  }
+
+
+  /* ==========================================================================
+     3. Navigation
+     ========================================================================== */
+
+  .greedy-nav {
+    background: #1e1e36;
+
+    a {
+      color: #a0a8ae;
+
+      &:hover {
+        color: #c0c8ce;
+      }
+    }
+
+    button {
+      background-color: #8d959b;
+      color: #fff;
+    }
+
+    .visible-links a:before {
+      background: mix(#000, $primary-color, 30%);
+    }
+
+    .hidden-links {
+      background: #252540;
+      border-color: #2d2d44;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+      a:hover {
+        color: #8d959b;
+        background: mix(#000, $primary-color, 50%);
+      }
+
+      li {
+        border-bottom-color: #2d2d44;
+      }
+
+      &:before {
+        border-color: #2d2d44 transparent;
+      }
+
+      &:after {
+        border-color: #252540 transparent;
+      }
+    }
+  }
+
+  /* TOC */
+  .toc {
+    color: #8d959b;
+    background-color: #252540;
+    border-color: #2d2d44;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+
+    .nav__title {
+      color: #fff;
+      background: #8d959b;
+    }
+  }
+
+  .toc__menu a {
+    color: #8d959b;
+    border-bottom-color: #2d2d44;
+
+    &:hover {
+      color: #d4d4dc;
+      background: #2a2a42;
+    }
+  }
+
+  /* Pagination */
+  .pagination li a {
+    color: mix(#000, $gray, 20%);
+    border-color: #3a3a52;
+
+    &:hover {
+      color: #90caf9;
+    }
+
+    &.current {
+      color: #fff;
+      background: #8d959b;
+    }
+
+    &.disabled {
+      color: mix(#000, $gray, 50%);
+    }
+  }
+
+  .pagination--pager {
+    color: mix(#000, $gray, 20%);
+    border-color: #3a3a52;
+
+    &:hover {
+      color: #90caf9;
+    }
+
+    &.disabled {
+      color: mix(#000, $gray, 50%);
+    }
+  }
+
+  .page__content + .pagination,
+  .page__meta + .pagination,
+  .page__share + .pagination,
+  .page__comments + .pagination {
+    border-top-color: #2d2d44;
+  }
+
+  /* Nav list */
+  .nav__list .active {
+    color: #fff;
+    background: #8d959b;
+  }
+
+  .nav__sub-title {
+    border-bottom-color: #2d2d44;
+  }
+
+
+  /* ==========================================================================
+     4. Sidebar
+     ========================================================================== */
+
+  .author__avatar img {
+    border-color: #2d2d44;
+  }
+
+  .author__urls {
+    background: #252540;
+    border-color: #2d2d44;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    @include breakpoint($large) {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+
+    &:before {
+      border-color: #2d2d44 transparent;
+    }
+
+    &:after {
+      border-color: #252540 transparent;
+    }
+
+    a {
+      color: #d4d4dc;
+    }
+  }
+
+  .author__urls_sm a {
+    color: #d4d4dc;
+  }
+
+
+  /* ==========================================================================
+     5. Footer
+     ========================================================================== */
+
+  .page__footer {
+    color: mix(#000, $gray, 25%);
+    background-color: #1c1c34;
+    border-top-color: #2d2d44;
+
+    .fas, .fab, .far, .fal {
+      color: mix(#000, $gray, 25%);
+    }
+  }
+
+
+  /* ==========================================================================
+     6. Page Content
+     ========================================================================== */
+
+  .page__content h1 {
+    border-bottom-color: #2d2d44;
+  }
+
+  .page__content h2 {
+    border-bottom-color: #2d2d44;
+  }
+
+  /* Language switch dropdown */
+  & .lang-switch .lang-switch-btn {
+    border-color: #2d2d44;
+    color: #d4d4dc;
+
+    &:hover {
+      background: #2a2a42;
+      border-color: #8d959b;
+    }
+  }
+
+  & .lang-switch .lang-dropdown {
+    background: #252540;
+    border-color: #2d2d44;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  & .lang-switch .lang-option {
+    color: #d4d4dc;
+
+    &:hover {
+      background: #2a2a42;
+    }
+
+    &.current {
+      color: mix(#fff, #d4d4dc, 40%);
+    }
+  }
+
+  /* Logo backgrounds stay white for transparent logos on dark backgrounds */
+  .edu-logo, .intern-logo {
+    background: #fff;
+    border-radius: 8px;
+  }
+
+  .page__content a:hover img {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  }
+
+  .page__share {
+    border-top-color: #2d2d44;
+  }
+
+  .page__meta {
+    color: mix(#000, $gray, 30%);
+  }
+
+  .page__taxonomy-item {
+    border-color: #3a3a52;
+
+    &:hover {
+      color: #90caf9;
+    }
+  }
+
+  .page__comments-title {
+    border-top-color: #2d2d44;
+  }
+
+  .page__comments-form {
+    background: #2a2a42;
+  }
+
+  .comment:not(:last-child) {
+    border-bottom-color: #2d2d44;
+  }
+
+  .comment__avatar {
+    border-color: #2d2d44;
+  }
+
+  .page__related {
+    border-top-color: #2d2d44;
+  }
+
+  /* Hero overlay text stays white on dark overlay */
+  .page__hero--overlay a,
+  .page__hero--overlay .page__title,
+  .page__hero--overlay .page__meta,
+  .page__hero--overlay .page__lead,
+  .page__hero--overlay .btn {
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .page__hero-caption {
+    background: #333;
+  }
+
+
+  /* ==========================================================================
+     7. Buttons
+     ========================================================================== */
+
+  .btn {
+    color: #d4d4dc !important;
+    background-color: #5a6268;
+
+    &:hover {
+      background-color: mix(#fff, #5a6268, 20%);
+    }
+  }
+
+  .btn--inverse {
+    color: #d4d4dc !important;
+    background-color: #2a2a42;
+    border-color: #3a3a52 !important;
+
+    &:hover {
+      color: #fff !important;
+      border-color: #8d959b;
+    }
+  }
+
+  .btn--light-outline {
+    border-color: #d4d4dc !important;
+  }
+
+  .btn--info {
+    background-color: $info-color;
+
+    &:hover {
+      background-color: mix(#fff, $info-color, 30%);
+    }
+  }
+
+  .btn--warning {
+    background-color: $warning-color;
+
+    &:hover {
+      background-color: mix(#fff, $warning-color, 30%);
+    }
+  }
+
+  .btn--success {
+    background-color: $success-color;
+
+    &:hover {
+      background-color: mix(#fff, $success-color, 30%);
+    }
+  }
+
+  .btn--danger {
+    background-color: $danger-color;
+
+    &:hover {
+      background-color: mix(#fff, $danger-color, 30%);
+    }
+  }
+
+
+  /* ==========================================================================
+     8. Tables
+     ========================================================================== */
+
+  thead {
+    background-color: #2a2a42;
+  }
+
+  td {
+    border-bottom-color: #3a3a52;
+  }
+
+
+  /* ==========================================================================
+     9. Forms
+     ========================================================================== */
+
+  legend {
+    color: #d4d4dc;
+    border-bottom-color: #444;
+  }
+
+  label {
+    color: #d4d4dc;
+  }
+
+  input, textarea, select {
+    color: #d4d4dc;
+    background-color: #2a2a42;
+    border-color: #444;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      border-color: mix(#000, $primary-color, 30%);
+    }
+  }
+
+  select {
+    background-color: #2a2a42;
+  }
+
+  input:focus, textarea:focus {
+    border-color: #8d959b;
+  }
+
+  .help-block, .help-inline {
+    color: #64b5f6;
+  }
+
+  .form:before {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  #goog-wm-qt {
+    background-color: #2a2a42;
+    color: #d4d4dc;
+    border-color: #555;
+  }
+
+
+  /* ==========================================================================
+     10. Notices (Info/Warning/Success/Danger blocks)
+     ========================================================================== */
+
+  .notice {
+    background-color: mix(#000, $light-gray, 50%);
+    box-shadow: 0 1px 1px rgba($light-gray, 0.15);
+
+    a {
+      color: mix(#fff, $light-gray, 30%);
+
+      &:hover {
+        color: mix(#fff, $light-gray, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $light-gray, 40%);
+    }
+  }
+
+  .notice--primary {
+    background-color: mix(#000, $primary-color, 60%);
+    box-shadow: 0 1px 1px rgba($primary-color, 0.25);
+
+    a {
+      color: mix(#fff, $primary-color, 30%);
+
+      &:hover {
+        color: mix(#fff, $primary-color, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $primary-color, 50%);
+    }
+  }
+
+  .notice--info {
+    background-color: mix(#000, $info-color, 60%);
+    box-shadow: 0 1px 1px rgba($info-color, 0.25);
+
+    a {
+      color: mix(#fff, $info-color, 30%);
+
+      &:hover {
+        color: mix(#fff, $info-color, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $info-color, 50%);
+    }
+  }
+
+  .notice--warning {
+    background-color: mix(#000, $warning-color, 60%);
+    box-shadow: 0 1px 1px rgba($warning-color, 0.25);
+
+    a {
+      color: mix(#fff, $warning-color, 30%);
+
+      &:hover {
+        color: mix(#fff, $warning-color, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $warning-color, 50%);
+    }
+  }
+
+  .notice--success {
+    background-color: mix(#000, $success-color, 60%);
+    box-shadow: 0 1px 1px rgba($success-color, 0.25);
+
+    a {
+      color: mix(#fff, $success-color, 30%);
+
+      &:hover {
+        color: mix(#fff, $success-color, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $success-color, 50%);
+    }
+  }
+
+  .notice--danger {
+    background-color: mix(#000, $danger-color, 60%);
+    box-shadow: 0 1px 1px rgba($danger-color, 0.25);
+
+    a {
+      color: mix(#fff, $danger-color, 30%);
+
+      &:hover {
+        color: mix(#fff, $danger-color, 50%);
+      }
+    }
+
+    code {
+      background-color: mix(#000, $danger-color, 50%);
+    }
+  }
+
+
+  /* ==========================================================================
+     11. Utilities
+     ========================================================================== */
+
+  .screen-reader-text:focus,
+  .screen-reader-shortcut:focus {
+    background: #252540;
+    box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.3);
+  }
+
+  .social-icons .fa {
+    color: #d4d4dc;
+  }
+
+  /* Override dark brand colors that are invisible on dark background */
+  .social-icons .fa-github,
+  .social-icons .fa-github-alt,
+  .social-icons .fa-github-square {
+    color: #d4d4dc;
+  }
+
+  .well {
+    background-color: #2a2a42;
+    border-color: #3a3a52;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .show-modal:before {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  .modal {
+    background: #252540;
+    border-color: #2d2d44;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  }
+
+  .modal__actions {
+    border-top-color: #2d2d44;
+  }
+
+  .footnote, .footnotes {
+    color: mix(#000, $gray, 30%);
+  }
+
+  a.reversefootnote {
+    color: #8d959b;
+  }
+
+  /* Navicon (hamburger) - keep white for visibility */
+  .navicon {
+    background: #fff;
+
+    &:before, &:after {
+      background: #fff;
+    }
+  }
+
+  .close .navicon {
+    background: transparent;
+  }
+
+  /* Selection */
+  ::selection {
+    color: #1a1a2e;
+    background: #8d959b;
+  }
+
+  ::-moz-selection {
+    color: #1a1a2e;
+    background: #8d959b;
+  }
+
+
+  /* ==========================================================================
+     12. Syntax Highlighting (Solarized Dark)
+     ========================================================================== */
+
+  div.highlighter-rouge, figure.highlight {
+    background-color: #002b36;
+    border-color: #2d2d44;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+
+    &:before {
+      background-color: #073642;
+    }
+  }
+
+  .highlight .c  { color: #586e75 } /* Comment */
+  .highlight .err { color: #839496 } /* Error */
+  .highlight .g  { color: #839496 } /* Generic */
+  .highlight .k  { color: #859900 } /* Keyword */
+  .highlight .l  { color: #839496 } /* Literal */
+  .highlight .n  { color: #839496 } /* Name */
+  .highlight .o  { color: #859900 } /* Operator */
+  .highlight .x  { color: #cb4b16 } /* Other */
+  .highlight .p  { color: #839496 } /* Punctuation */
+  .highlight .cm { color: #586e75 } /* Comment.Multiline */
+  .highlight .cp { color: #859900 } /* Comment.Preproc */
+  .highlight .c1 { color: #586e75 } /* Comment.Single */
+  .highlight .cs { color: #859900 } /* Comment.Special */
+  .highlight .gd { color: #2aa198 } /* Generic.Deleted */
+  .highlight .ge { color: #839496; font-style: italic } /* Generic.Emph */
+  .highlight .gr { color: #dc322f } /* Generic.Error */
+  .highlight .gh { color: #cb4b16 } /* Generic.Heading */
+  .highlight .gi { color: #859900 } /* Generic.Inserted */
+  .highlight .go { color: #839496 } /* Generic.Output */
+  .highlight .gp { color: #839496 } /* Generic.Prompt */
+  .highlight .gs { color: #839496; font-weight: bold } /* Generic.Strong */
+  .highlight .gu { color: #cb4b16 } /* Generic.Subheading */
+  .highlight .gt { color: #839496 } /* Generic.Traceback */
+  .highlight .kc { color: #cb4b16 } /* Keyword.Constant */
+  .highlight .kd { color: #268bd2 } /* Keyword.Declaration */
+  .highlight .kn { color: #859900 } /* Keyword.Namespace */
+  .highlight .kp { color: #859900 } /* Keyword.Pseudo */
+  .highlight .kr { color: #268bd2 } /* Keyword.Reserved */
+  .highlight .kt { color: #dc322f } /* Keyword.Type */
+  .highlight .ld { color: #839496 } /* Literal.Date */
+  .highlight .m  { color: #2aa198 } /* Literal.Number */
+  .highlight .s  { color: #2aa198 } /* Literal.String */
+  .highlight .na { color: #839496 } /* Name.Attribute */
+  .highlight .nb { color: #b58900 } /* Name.Builtin */
+  .highlight .nc { color: #268bd2 } /* Name.Class */
+  .highlight .no { color: #cb4b16 } /* Name.Constant */
+  .highlight .nd { color: #268bd2 } /* Name.Decorator */
+  .highlight .ni { color: #cb4b16 } /* Name.Entity */
+  .highlight .ne { color: #cb4b16 } /* Name.Exception */
+  .highlight .nf { color: #268bd2 } /* Name.Function */
+  .highlight .nl { color: #839496 } /* Name.Label */
+  .highlight .nn { color: #839496 } /* Name.Namespace */
+  .highlight .nx { color: #839496 } /* Name.Other */
+  .highlight .py { color: #839496 } /* Name.Property */
+  .highlight .nt { color: #268bd2 } /* Name.Tag */
+  .highlight .nv { color: #268bd2 } /* Name.Variable */
+  .highlight .ow { color: #859900 } /* Operator.Word */
+  .highlight .w  { color: #839496 } /* Text.Whitespace */
+  .highlight .mf { color: #2aa198 } /* Literal.Number.Float */
+  .highlight .mh { color: #2aa198 } /* Literal.Number.Hex */
+  .highlight .mi { color: #2aa198 } /* Literal.Number.Integer */
+  .highlight .mo { color: #2aa198 } /* Literal.Number.Oct */
+  .highlight .sb { color: #586e75 } /* Literal.String.Backtick */
+  .highlight .sc { color: #2aa198 } /* Literal.String.Char */
+  .highlight .sd { color: #839496 } /* Literal.String.Doc */
+  .highlight .s2 { color: #2aa198 } /* Literal.String.Double */
+  .highlight .se { color: #cb4b16 } /* Literal.String.Escape */
+  .highlight .sh { color: #839496 } /* Literal.String.Heredoc */
+  .highlight .si { color: #2aa198 } /* Literal.String.Interpol */
+  .highlight .sx { color: #2aa198 } /* Literal.String.Other */
+  .highlight .sr { color: #dc322f } /* Literal.String.Regex */
+  .highlight .s1 { color: #2aa198 } /* Literal.String.Single */
+  .highlight .ss { color: #2aa198 } /* Literal.String.Symbol */
+  .highlight .bp { color: #268bd2 } /* Name.Builtin.Pseudo */
+  .highlight .vc { color: #268bd2 } /* Name.Variable.Class */
+  .highlight .vg { color: #268bd2 } /* Name.Variable.Global */
+  .highlight .vi { color: #268bd2 } /* Name.Variable.Instance */
+  .highlight .il { color: #2aa198 } /* Literal.Number.Integer.Long */
+
+
+  /* ==========================================================================
+     13. Custom Styles (from main.scss)
+     ========================================================================== */
+
+  .paper-box {
+    border-bottom-color: #2d2d44;
+
+    .paper-box-image img {
+      box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .badge {
+    color: #d4d4dc;
+  }
+
+  /* Archive */
+  .archive__subtitle {
+    color: mix(#000, $gray, 30%);
+    border-bottom-color: #2d2d44;
+  }
+
+  .archive a:hover img {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  }
+
+  .archive__item:hover .archive__item-teaser {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  }
+
+  .feature__wrapper {
+    border-bottom-color: #2d2d44;
+  }
+
+  /* Focus outline */
+  %tab-focus {
+    outline-color: $warning-color;
+  }
+
+  /* ==========================================================================
+     14. Theme Toggle Button (Dark Mode Override)
+     ========================================================================== */
+
+  /* 深色模式切换按钮样式 */
+  & .theme-toggle {
+    background: transparent;
+    border-color: #2d2d44;
+    color: #d4d4dc;
+
+    &:hover {
+      background: #2a2a42;
+      border-color: #8d959b;
+    }
+
+    &:focus {
+      outline-color: #8d959b;
+    }
+  }
+
+  /* 深色模式：显示太阳图标 + "Light" 文字，隐藏月亮图标 + "Dark" 文字 */
+  & .theme-toggle .icon-dark,
+  & .theme-toggle .label-dark { display: none; }
+  & .theme-toggle .icon-light,
+  & .theme-toggle .label-light { display: inline; }
+}
+
+
+/* ==========================================================================
+   Theme Toggle Button Base Styles (must be before mixin activation)
+   ========================================================================== */
+
+/* ==========================================================================
+   Theme Toggle Button Base Styles
+   ========================================================================== */
+
+/* 让 masthead__menu 使用 flex 布局，nav 和 button 并排 */
+.masthead__menu {
+  display: flex;
+  align-items: center;
+
+  nav {
+    flex: 1;
+  }
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  margin-left: 0.75em;
+  background: transparent;
+  border: 1px solid $border-color;
+  border-radius: 17px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-family: $sans-serif-narrow;
+  font-weight: bold;
+  line-height: 1;
+  color: $text-color;
+  transition: $global-transition;
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  &:hover {
+    background: $lighter-gray;
+    border-color: $primary-color;
+  }
+
+  &:focus {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+/* 默认（浅色模式）：显示月亮图标 + "Dark" 文字，隐藏太阳图标 + "Light" 文字 */
+.theme-toggle .icon-dark,
+.theme-toggle .label-dark { display: inline; }
+.theme-toggle .icon-light,
+.theme-toggle .label-light { display: none; }
+
+
+/* ==========================================================================
+   Activation Triggers
+   ========================================================================== */
+
+/* Trigger 1: Manual toggle (data-theme attribute set by JS) */
+:root[data-theme="dark"] {
+  @include dark-mode;
+}
+
+/* Trigger 2: OS-level auto-detection */
+/* :not([data-theme="light"]) prevents dark mode when user manually chose light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include dark-mode;
+  }
+}
