@@ -3,7 +3,9 @@ push.sh
 .DS_Store
 .claude
 .spec-workflow
+.venv
 DRAFT.txt
 PROMPT.txt
 COMMAND.txt
 CLAUDE.md
+uv.lock
