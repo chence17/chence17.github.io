@@ -15,7 +15,7 @@ redirect_from:
 
 我目前在[墨尔本大学理学院数学与统计系](https://www.unimelb.edu.au/)攻读博士学位，导师为[宫明明教授 (Prof. Mingming Gong)](https://mingming-gong.github.io/)。同时，我在新加坡 [HeyGen](https://www.heygen.com) 担任 AI 研究实习生，由[任意 (Mr. Yi Ren)](https://rayeren.github.io/) 和[洪智滨 (Mr. Zhibin Hong)](https://openreview.net/profile?id=~Zhibin_Hong1) 指导。此前，我于 2023 年在[香港中文大学（深圳）(CUHK-SZ)](https://www.cuhk.edu.cn/) 获得哲学硕士学位，导师为[韩晓光教授 (Prof. Xiaoguang Han)](https://scholar.google.com/citations?user=z-rqsR4AAAAJ&hl=en)；于 2021 年在[清华大学](https://www.tsinghua.edu.cn/) 获得工学学士学位，导师为[李一鹏教授 (Prof. Yipeng Li)](https://www.au.tsinghua.edu.cn/info/1080/3167.htm)。
 
-我的研究方向包括生成式模型、视觉语言模型以及多模态语言模型。我已在 CVPR、ECCV、ICLR 等顶级国际 AI 会议上发表 10 余篇论文，累计<a href='https://scholar.google.com/citations?user=tX8IWwMAAAAJ'>Google Scholar 引用 <strong><span id='total_cit'>700+</span></strong></a> (<a href='https://scholar.google.com/citations?user=tX8IWwMAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>)。
+我的研究方向包括生成式模型、视觉语言模型以及多模态语言模型。我已在 CVPR、ECCV、ICLR 等顶级国际 AI 会议上发表 10 余篇论文，累计<a href='https://scholar.google.com/citations?user=tX8IWwMAAAAJ'>Google Scholar 引用 <strong><span id='total_cit'>700+</span></strong></a> (<a href='https://scholar.google.com/citations?user=tX8IWwMAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&cacheSeconds=3600&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>)。
 
 如您有意向进行任何形式的**学术合作**，欢迎随时通过 [antonio.chan.cc@outlook.com](mailto:antonio.chan.cc@outlook.com) 与我联系。
 
