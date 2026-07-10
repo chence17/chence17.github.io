@@ -26,7 +26,7 @@ AcadHomepage
 - [作者的个人主页](https://rayeren.github.io/)
 
 ## 主要特点
-- **自动更新谷歌学术引用**: 借助谷歌学术爬虫和github action功能，本仓库可以自动更新作者的引用数和论文引用数。
+- **谷歌学术引用展示**: 支持展示谷歌学术引用数据。由于 GitHub Actions 服务器 IP 会被 Google Scholar 封锁，自动抓取不可靠，建议本地手动生成数据文件。
 - **支持谷歌Analytics**: 你可以通过简单的配置来实现使用谷歌Analytics跟踪网页的流量。
 - **响应式的**: 此主页会针对不同的屏幕尺寸自动调整布局。
 - **美观而简约**: 此主页美观而简约，适合个人学术主页的搭建。
@@ -35,10 +35,20 @@ AcadHomepage
 ## 快速开始
 
 1. Fork本仓库到`USERNAME/USERNAME.github.io`，其中`USERNAME`是你的github用户名。
-1. 配置谷歌学术引用爬虫：
+1. 配置谷歌学术引用数据：
     1. 在你的谷歌学术引用页面的url里找到你的谷歌学术ID：例如，在url https://scholar.google.com/citations?user=SCHOLAR_ID 中，`SCHOLAR_ID`部分即为你的谷歌学术ID。
     1. 在github本仓库页面的`Settings -> Secrets -> Actions -> New repository secret`中，添加`GOOGLE_SCHOLAR_ID`变量：`name=GOOGLE_SCHOLAR_ID`、`value=SCHOLAR_ID`。
-    1. 在github本仓库页面的`Action`中，点击*"I understand my workflows, go ahead and enable them"*启用workflows by clicking *"。本action将会谷歌学术引用的统计量数据`gs_data.json`到本仓库的`google-scholar-stats`分支中。每次修改main分支的内容会触发该action。本action也会在每天08:00 UTC定时触发。
+    1. **手动更新引用数据**：由于 Google Scholar 会封锁 GitHub Actions 服务器的 IP，自动抓取不可靠。推荐在本地运行爬虫脚本，然后将生成的文件提交到仓库：
+       ```bash
+       # 本地运行爬虫（需要先 pip install scholarly jsonpickle）
+       GOOGLE_SCHOLAR_ID=你的ID python3 google_scholar_crawler/main.py
+       # 复制到 assets 目录
+       cp google_scholar_crawler/results/gs_data.json assets/
+       cp google_scholar_crawler/results/gs_data_shieldsio.json assets/
+       # 提交并推送
+       git add assets/gs_data*.json && git commit -m "chore: update scholar citations" && git push
+       ```
+    1. GitHub Actions 中保留了一个手动触发（workflow_dispatch）的备份 workflow，偶尔可以试试运气。
 1. 使用 [favicon-generator](https://redketchup.io/favicon-generator)生成favicon（网页icon文件），并下载所有文件到`REPO/images`。
 1. 修改主页配置文件[_config.yml](../_config.yml):
     1. `title`: 主页标题
