@@ -21,6 +21,7 @@ If you are interested in any form of **academic cooperation**, please feel free 
 
 
 # 🔥 News
+- *2026.07*: &nbsp;🎉 One paper is accepted by SIGGRAPH Asia 2026.
 - *2026.06*: &nbsp;🎉 One paper is accepted by ECCV 2026.
 - *2026.02*: &nbsp;🎉 One paper is accepted by CVPR 2026.
 - *2026.01*: &nbsp;🎉 One paper is accepted by ICLR 2026.
@@ -48,7 +49,7 @@ If you are interested in any form of **academic cooperation**, please feel free 
 </div>
 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='/images/teaser/2026TAVR.png' alt="TAVR" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">SIGGRAPH Asia 2026</div><img src='/images/teaser/2026TAVR.png' alt="TAVR" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [TAVR: Generate Your Talking Avatar from Video Reference](https://arxiv.org/abs/2604.27918) \\

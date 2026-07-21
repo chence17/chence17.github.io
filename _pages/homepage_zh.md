@@ -22,6 +22,7 @@ redirect_from:
 
 <span class='anchor' id='-新闻'></span>
 # 🔥 新闻
+- *2026.07*: &nbsp;🎉 一篇论文被 SIGGRAPH Asia 2026 接收。
 - *2026.06*: &nbsp;🎉 一篇论文被 ECCV 2026 接收。
 - *2026.02*: &nbsp;🎉 一篇论文被 CVPR 2026 接收。
 - *2026.01*: &nbsp;🎉 一篇论文被 ICLR 2026 接收。
@@ -50,7 +51,7 @@ redirect_from:
 </div>
 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='/images/teaser/2026TAVR.png' alt="TAVR" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">SIGGRAPH Asia 2026</div><img src='/images/teaser/2026TAVR.png' alt="TAVR" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [TAVR: Generate Your Talking Avatar from Video Reference](https://arxiv.org/abs/2604.27918) \\
